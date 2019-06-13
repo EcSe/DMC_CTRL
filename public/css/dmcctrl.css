@@ -1,0 +1,64 @@
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.btnSalida {
+    float: right;
+    margin-right: 50px;
+}
+
+.divMensaje {
+    display: none;
+    border: 1px solid gray;
+    text-align: center;
+    background-color: mediumseagreen;
+    color: white;
+    font-size: 15px;
+    margin-right: 30px;
+    margin-left: 30px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.divMensajeCampo {
+    display: none;
+    border: 1px solid gray;
+    text-align: center;
+    background-color: mediumseagreen;
+    color: white;
+    font-size: 15px;
+    margin-right: 30px;
+    margin-left: 30px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+
+/* CSS para la tabla */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+
+/* Zebra striping */
+
+tr:nth-of-type(odd) {
+    background: #eee;
+}
+
+th {
+    background: #333;
+    color: white;
+    font-weight: bold;
+}
+
+td,
+th {
+    padding: 6px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
