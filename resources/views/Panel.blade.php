@@ -76,7 +76,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <form action="{{ route('documento') }}" method="POST" target="_blank" id="frmDocumentoVista">
-                                <input type="hidden" id="inVistaIdDocumentoPlano">
+                                <input type="hidden" id="inVistaIdDocumentoPlano" name="inVistaIdDocumentoPlano">
                             </form>
                         </div>
                     </div>

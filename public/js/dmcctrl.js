@@ -272,7 +272,7 @@ function listarPlano() {
         }
     };
 
-    petlistPlano.onreadystatechange = function() {
+    petlistPlano.onreadystatechange = () => {
         if (petlistPlano.readyState == 4 && petlistPlano.status == 200) {
             //borrar loader
         }
@@ -281,7 +281,7 @@ function listarPlano() {
 }
 
 
-function agregarUsuario(e) {
+let agregarUsuario = (e) => {
     e.preventDefault();
     var petUsuario = new XMLHttpRequest();
     petUsuario.open('POST', '/agregarUsuario');
@@ -315,11 +315,11 @@ function agregarUsuario(e) {
     petUsuario.send(paramUsuarios);
 }
 
-function listarUsuariosCombo(e) {
+let listarUsuariosCombo = (e) => {
     var petListUsuarios = new XMLHttpRequest();
     petListUsuarios.open('GET', '/listUsuarios');
 
-    petListUsuarios.onload = function() {
+    petListUsuarios.onload = () => {
         var lstUsuarios = JSON.parse(petListUsuarios.responseText);
         var selectUser = document.getElementById('userSelect');
         for (var i = 0; lstUsuarios.length; i++) {
@@ -338,7 +338,7 @@ function listarUsuariosCombo(e) {
     petListUsuarios.send();
 }
 
-function addInputUsuarioPlano(e) {
+let addInputUsuarioPlano = (e) => {
     divMensaje.style.display = "none";
     var selectUser = document.getElementById('userSelect');
     selectUser.options.length = 0;
@@ -386,7 +386,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     listarUsuario();
 })
 
-function docuMaestroCampos() {
+let docuMaestroCampos = () => {
     var petDocMasestro = new XMLHttpRequest();
     petDocMasestro.open('GET', '/listarDocumentoMaestro');
     //cargaloader
@@ -401,7 +401,7 @@ function docuMaestroCampos() {
             fila.innerHTML += ('<td>' + listProyecto[i].proyecto.proveedor.VC_DESCRIPCION + '</td>');
             fila.innerHTML += ('<td>' + listProyecto[i].proyecto.VC_NOMBRE + '</td>');
             fila.innerHTML += ('<td>' + listProyecto[i].proyecto.VC_DESCRIPCION + '</td>');
-            fila.innerHTML += ('<td><input type="button" onclick= "AddCampo(this)" value="AC"> <input type="button" onclick="obtenerIdDocumento(this)" value="VER"></td>');
+            fila.innerHTML += ('<td><input type="button" onclick= "AddCampo(this)" value="AC">&nbsp&nbsp<input type="button" onclick="obtenerIdDocumento(this)" value="VER"></td>');
             tblProyectoDocumento.appendChild(fila);
         }
     };
@@ -512,7 +512,7 @@ let listarDocPlanoUsuario = () => {
             fila.innerHTML += (`<td>${listDocUsuario[i].PLANO}</td>`);
             fila.innerHTML += (`<td>${listDocUsuario[i].USUARIO}</td>`);
             fila.innerHTML += (`<td>${listDocUsuario[i].FECHAENTREGA}</td>`);
-            fila.innerHTML += (`<td><input type="button" value="V" onclick="obtenerIdDocumentoVista(this)"><input type="button" value="D"></td>`);
+            fila.innerHTML += (`<td><a target="_blank" onclick="obtenerIdDocumentoVista(this)" href="docPlano" class="btn btn-info">V</a>&nbsp&nbsp<input type="button" class="btn btn-info" value="D"></td>`);
             tblPanelVista.appendChild(fila);
         }
     }
@@ -548,7 +548,7 @@ let buscarDocPlanoUsuario = (e) => {
             fila.innerHTML += (`<td>${listDocUsuario[i].PLANO}</td>`);
             fila.innerHTML += (`<td>${listDocUsuario[i].USUARIO}</td>`);
             fila.innerHTML += (`<td>${listDocUsuario[i].FECHAENTREGA}</td>`);
-            fila.innerHTML += (`<td><input type="button" value="V" onclick="obtenerIdDocumentoVista()"><input type="button" value="D"></td>`);
+            fila.innerHTML += (`<td><a target="_blank" onclick="obtenerIdDocumentoVista(this)" href="docPlano" class="btn btn-info">V</a>&nbsp&nbsp<input type="button" class="btn btn-info" value="D"></td>`);
             tblPanelVista.appendChild(fila);
         }
     }
@@ -566,15 +566,11 @@ let buscarDocPlanoUsuario = (e) => {
 
     petDocumentoUsuario.send(parametros);
 }
-
-
 let obtenerIdDocumentoVista = (e) => {
-    //divMensajeCampo.style.display = "none";
-    let idDocumentoMaestro = e.parentNode.parentElement.cells[0].innerHTML;
-    document.getElementById('inVistaIdDocumentoPlano').value = idDocumentoMaestro;
-    let frmDocumentoVista = document.getElementById('frmDocumentoVista');
-    frmDocumentoVista.submit();
+    let idDocumentoPlano = e.parentNode.parentElement.cells[0].innerHTML;
+    sessionStorage.setItem('idDocPlano', idDocumentoPlano);
 }
+
 
 //FUNCIONES PANEL REGISTRO USUARIOS
 
