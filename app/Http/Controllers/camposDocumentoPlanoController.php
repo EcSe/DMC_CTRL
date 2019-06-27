@@ -47,4 +47,10 @@ class camposDocumentoPlanoController extends Controller
                 }
         }
     }
+
+    public function agregarImagenes (Request $request) {
+        $usuario = session('usu');
+        $datos = $request->all();
+        var_dump($datos);
+    }
 }

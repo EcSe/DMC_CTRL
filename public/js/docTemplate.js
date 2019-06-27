@@ -45,11 +45,11 @@ let verDocumento = () => {
 
 let guardarDocumento = (e) => {
     e.preventDefault();
-    let idDocPlano = localStorage.getItem('idDocPlano');
+    let idDocPlano = sessionStorage.getItem('idDocPlano');
     let peticion = new XMLHttpRequest();
     let frmData = new FormData(frmCamposTexto);
     frmData.append('idDocPlano', idDocPlano);
-    peticion.open('POST', '/agregarCamposPlano');
+    peticion.open('POST', '/agregarImagenes');
     peticion.onload = () => {}
     peticion.onreadystatechange = () => {
         if (peticion.readyState === 4 && peticion.status === 200) {
@@ -57,7 +57,6 @@ let guardarDocumento = (e) => {
         }
     }
     peticion.send(frmData);
-    console.log(frmData);
 }
 
 let readURL = (input) => {
@@ -72,4 +71,31 @@ let readURL = (input) => {
 
 $("#inputImage1").change(function() {
     readURL(this);
+});
+
+let obtenerIdForm = (e) => {
+    let idForm = e.parentNode.id;
+    console.log(idForm);
+    return idForm;
+}
+frmImagen = document.getElementById(obtenerIdForm());
+let guardarImagen = (e) => {
+    e.preventDefault();
+    let idDocPlano = sessionStorage.getItem('idDocPlano');
+    let frmData = new FormData(frmImagen);
+    frmData.append('idDocPlano', idDocPlano);
+    let peticion = new XMLHttpRequest();
+    peticion.open('POST', '/agregarImagenes');
+
+    peticion.onload = () => {}
+    peticion.onreadystatechange = () => {
+        if (peticion.readyState == 4 && peticion.status == 200) {
+
+        }
+    }
+    peticion.send(frmData);
+}
+
+frmImagen.addEventListener('submit', (e) => {
+    guardarImagen(e);
 });

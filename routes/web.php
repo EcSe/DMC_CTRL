@@ -56,3 +56,6 @@ Route::post('/buscarDocUsuario','docPlanoUsuarioDetalleController@buscar');
 Route::get('/listarDocUsuario','docPlanoUsuarioDetalleController@listar');
 Route::post('/verDocumento','camposDocumentoPlanoController@listar');
 Route::post('/agregarCamposPlano','camposDocumentoPlanoController@agregar');
+
+//RUTAS DOCUMENTO
+Route::post('/agregarImagenes','camposDocumentoPlanoController@agregarImagenes');

@@ -560,8 +560,10 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm1" enctype="multipart/form-data">
-                                    <input type="file" id="inputImage1">
-                                    <img id="img1" src="#">
+                                    <input type="file" id="inputImage1" onclick="obtenerIdForm(this)" name="inputImage1">
+                                    <input type="submit" value="Cargar">
+                                    <input type="button" value="Borrar">
+                                    <img id="img1" src="" width="500" height="auto">
                                 </form>
                             </div>
                         </div>
