@@ -84,6 +84,7 @@ let guardarImagen = (e) => {
     let idDocPlano = sessionStorage.getItem('idDocPlano');
     let frmData = new FormData(frmImagen);
     frmData.append('idDocPlano', idDocPlano);
+    frmData.append('inputImagen1', fileInputElement.files[0]);
     let peticion = new XMLHttpRequest();
     peticion.open('POST', '/agregarImagenes');
 
