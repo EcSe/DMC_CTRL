@@ -81,7 +81,7 @@ function controlFormularios() {
 function agregarProveedor(e) {
     e.preventDefault();
     var petProveedor = new XMLHttpRequest();
-    petProveedor.open('POST', '/agregarProveedor');
+    petProveedor.open('POST', '/agregarProveedor', true);
     //agregar loader
     paramNombre = frmProveedor.inNombreProv.value.trim();
     paramDescripcion = frmProveedor.inDescripcionProv.value.trim();

@@ -560,8 +560,8 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm1" enctype="multipart/form-data">
-                                    <input type="file" id="inputImage1" onclick="obtenerIdForm(this)" name="inputImage1">
-                                    <input type="submit" value="Cargar">
+                                    <input type="file" id="inputImage1" name="inputImage1" onchange="readURL(this)">
+                                    <input type="submit" value="Cargar" id="subCarga1">
                                     <input type="button" value="Borrar">
                                     <img id="img1" src="" width="500" height="auto">
                                 </form>
@@ -576,9 +576,12 @@
                                     <img id="imgEjemplo2" src="" width="500px" height="auto" class="img-fluid img-thumbnail">
                                 </figure>
                             </div>
-                            <div class="col-md-6 kv-main" id="wrapper">
+                            <div class="col-md-6" id="wrapper">
                                 <form id="frm2" enctype="multipart/form-data">
-                                    <input type="file" class="file" id="inputImage2" data-min-file-count="1">
+                                    <input type="file" id="inputImage2" name="inputImage2" onchange="readURL(this)">
+                                    <input type="submit" value="Cargar" id="subCarga2">
+                                    <input type="button" value="Borrar">
+                                    <img id="img2" src="" width="500" height="auto">
                                 </form>
                             </div>
                         </div>
@@ -593,8 +596,10 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm3" enctype="multipart/form-data">
-                                    <input type="file" id="inputImage3">
-                                    <img id="img3">
+                                    <input type="file" id="inputImage3" name="inputImage3" onchange="readURL(this)">
+                                    <input type="submit" value="Cargar" id="subCarga3">
+                                    <input type="button" value="Borrar">
+                                    <img id="img3" src="" width="500" height="auto">
                                 </form>
                             </div>
                         </div>
@@ -609,8 +614,10 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm4" enctype="multipart/form-data">
-                                    <input type="file" id="inputImage4">
-                                    <img id="img4">
+                                    <input type="file" id="inputImage4" name="inputImage4" onchange="readURL(this)">
+                                    <input type="submit" value="Cargar" id="subCarga4">
+                                    <input type="button" value="Borrar">
+                                    <img id="img4" src="" width="500" height="auto">
                                 </form>
                             </div>
                         </div>
@@ -625,8 +632,10 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm5" enctype="multipart/form-data">
-                                    <input type="file" id="inputImage5">
-                                    <img id="img5">
+                                    <input type="file" id="inputImage5" name="inputImage5" onchange="readURL(this)">
+                                    <input type="submit" value="Cargar" id="subCarga5">
+                                    <input type="button" value="Borrar">
+                                    <img id="img5" src="" width="500" height="auto">
                                 </form>
                             </div>
                         </div>
@@ -641,8 +650,10 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm6" enctype="multipart/form-data">
-                                    <input type="file" id="inputImage6">
-                                    <img id="img6">
+                                    <input type="file" id="inputImage6" name="inputImage6" onchange="readURL(this)">
+                                    <input type="submit" value="Cargar" id="subCarga6">
+                                    <input type="button" value="Borrar">
+                                    <img id="img6" src="" width="500" height="auto">
                                 </form>
                             </div>
                         </div>
@@ -657,8 +668,10 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm7" enctype="multipart/form-data">
-                                    <input type="file" id="inputImage7">
-                                    <img id="img7">
+                                    <input type="file" id="inputImage7" name="inputImage7" onchange="readURL(this)">
+                                    <input type="submit" value="Cargar" id="subCarga7">
+                                    <input type="button" value="Borrar">
+                                    <img id="img7" src="" width="500" height="auto">
                                 </form>
                             </div>
                         </div>
@@ -673,8 +686,10 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm8" enctype="multipart/form-data">
-                                    <input type="file" id="inputImage8">
-                                    <img id="img8">
+                                    <input type="file" id="inputImage8" name="inputImage8" onchange="readURL(this)">
+                                    <input type="submit" value="Cargar" id="subCarga8">
+                                    <input type="button" value="Borrar">
+                                    <img id="img8" src="" width="500" height="auto">
                                 </form>
                             </div>
                         </div>
@@ -689,8 +704,10 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm9" enctype="multipart/form-data">
-                                    <input type="file" id="inputImage9">
-                                    <img id="img9">
+                                    <input type="file" id="inputImage9" name="inputImage9" onchange="readURL(this)">
+                                    <input type="submit" value="Cargar" id="subCarga9">
+                                    <input type="button" value="Borrar">
+                                    <img id="img9" src="" width="500" height="auto">
                                 </form>
                             </div>
                         </div>
@@ -705,8 +722,10 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm10" enctype="multipart/form-data">
-                                    <input type="file" id="inputImage10">
-                                    <img id="img10">
+                                    <input type="file" id="inputImage10" name="inputImage10" onchange="readURL(this)">
+                                    <input type="submit" value="Cargar" id="subCarga10">
+                                    <input type="button" value="Borrar">
+                                    <img id="img10" src="" width="500" height="auto">
                                 </form>
                             </div>
                         </div>
@@ -721,8 +740,10 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm11" enctype="multipart/form-data">
-                                    <input type="file" id="inputImage11">
-                                    <img id="img11">
+                                    <input type="file" id="inputImage11" name="inputImage11" onchange="readURL(this)">
+                                    <input type="submit" value="Cargar" id="subCarga11">
+                                    <input type="button" value="Borrar">
+                                    <img id="img11" src="" width="500" height="auto">
                                 </form>
                             </div>
                         </div>
@@ -737,8 +758,10 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm12" enctype="multipart/form-data">
-                                    <input type="file" id="inputImage12">
-                                    <img id="img12">
+                                    <input type="file" id="inputImage12" name="inputImage12" onchange="readURL(this)">
+                                    <input type="submit" value="Cargar" id="subCarga12">
+                                    <input type="button" value="Borrar">
+                                    <img id="img12" src="" width="500" height="auto">
                                 </form>
                             </div>
                         </div>
@@ -753,8 +776,10 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm13" enctype="multipart/form-data">
-                                    <input type="file" id="inputImage13">
-                                    <img id="img13">
+                                    <input type="file" id="inputImage13" name="inputImage13" onchange="readURL(this)">
+                                    <input type="submit" value="Cargar" id="subCarga13">
+                                    <input type="button" value="Borrar">
+                                    <img id="img13" src="" width="500" height="auto">
                                 </form>
                             </div>
                         </div>
@@ -769,8 +794,10 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm14" enctype="multipart/form-data">
-                                    <input type="file" id="inputImage14">
-                                    <img id="img14">
+                                    <input type="file" id="inputImage14" name="inputImage14" onchange="readURL(this)">
+                                    <input type="submit" value="Cargar" id="subCarga14">
+                                    <input type="button" value="Borrar">
+                                    <img id="img14" src="" width="500" height="auto">
                                 </form>
                             </div>
                         </div>
@@ -785,8 +812,10 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm15" enctype="multipart/form-data">
-                                    <input type="file" id="inputImage15">
-                                    <img id="img15">
+                                    <input type="file" id="inputImage15" name="inputImage15" onchange="readURL(this)">
+                                    <input type="submit" value="Cargar" id="subCarga15">
+                                    <input type="button" value="Borrar">
+                                    <img id="img15" src="" width="500" height="auto">
                                 </form>
                             </div>
                         </div>
@@ -801,8 +830,10 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm16" enctype="multipart/form-data">
-                                    <input type="file" id="inputImage16">
-                                    <img id="img16">
+                                    <input type="file" id="inputImage16" name="inputImage16" onchange="readURL(this)">
+                                    <input type="submit" value="Cargar" id="subCarga16">
+                                    <input type="button" value="Borrar">
+                                    <img id="img16" src="" width="500" height="auto">
                                 </form>
                             </div>
                         </div>
@@ -817,8 +848,10 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm17" enctype="multipart/form-data">
-                                    <input type="file" id="inputImage17">
-                                    <img id="img17">
+                                    <input type="file" id="inputImage17" name="inputImage17" onchange="readURL(this)">
+                                    <input type="submit" value="Cargar" id="subCarga17">
+                                    <input type="button" value="Borrar">
+                                    <img id="img17" src="" width="500" height="auto">
                                 </form>
                             </div>
                         </div>
@@ -833,8 +866,10 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm18" enctype="multipart/form-data">
-                                    <input type="file" id="inputImage18">
-                                    <img id="img18">
+                                    <input type="file" id="inputImage18" name="inputImage18" onchange="readURL(this)">
+                                    <input type="submit" value="Cargar" id="subCarga18">
+                                    <input type="button" value="Borrar">
+                                    <img id="img18" src="" width="500" height="auto">
                                 </form>
                             </div>
                         </div>
@@ -849,8 +884,10 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm19" enctype="multipart/form-data">
-                                    <input type="file" id="inputImage19">
-                                    <img id="img19">
+                                    <input type="file" id="inputImage19" name="inputImage19" onchange="readURL(this)">
+                                    <input type="submit" value="Cargar" id="subCarga19">
+                                    <input type="button" value="Borrar">
+                                    <img id="img19" src="" width="500" height="auto">
                                 </form>
                             </div>
                         </div>
@@ -865,8 +902,10 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm20" enctype="multipart/form-data">
-                                    <input type="file" id="inputImage20">
-                                    <img id="img20">
+                                    <input type="file" id="inputImage20" name="inputImage20" onchange="readURL(this)">
+                                    <input type="submit" value="Cargar" id="subCarga20">
+                                    <input type="button" value="Borrar">
+                                    <img id="img20" src="" width="500" height="auto">
                                 </form>
                             </div>
                         </div>
@@ -881,8 +920,10 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm21" enctype="multipart/form-data">
-                                    <input type="file" id="inputImage21">
-                                    <img id="img21">
+                                    <input type="file" id="inputImage21" name="inputImage21" onchange="readURL(this)">
+                                    <input type="submit" value="Cargar" id="subCarga21">
+                                    <input type="button" value="Borrar">
+                                    <img id="img21" src="" width="500" height="auto">
                                 </form>
                             </div>
                         </div>
@@ -897,8 +938,10 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm22" enctype="multipart/form-data">
-                                    <input type="file" id="inputImage22">
-                                    <img id="img22">
+                                    <input type="file" id="inputImage22" name="inputImage22" onchange="readURL(this)">
+                                    <input type="submit" value="Cargar" id="subCarga22">
+                                    <input type="button" value="Borrar">
+                                    <img id="img22" src="" width="500" height="auto">
                                 </form>
                             </div>
                         </div>
@@ -913,8 +956,10 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm23" enctype="multipart/form-data">
-                                    <input type="file" id="inputImage23">
-                                    <img id="img23">
+                                    <input type="file" id="inputImage23" name="inputImage23" onchange="readURL(this)">
+                                    <input type="submit" value="Cargar" id="subCarga23">
+                                    <input type="button" value="Borrar">
+                                    <img id="img23" src="" width="500" height="auto">
                                 </form>
                             </div>
                         </div>
@@ -929,8 +974,10 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm24" enctype="multipart/form-data">
-                                    <input type="file" id="inputImage24">
-                                    <img id="img24">
+                                    <input type="file" id="inputImage24" name="inputImage24" onchange="readURL(this)">
+                                    <input type="submit" value="Cargar" id="subCarga24">
+                                    <input type="button" value="Borrar">
+                                    <img id="img24" src="" width="500" height="auto">
                                 </form>
                             </div>
                         </div>
@@ -945,8 +992,10 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm25" enctype="multipart/form-data">
-                                    <input type="file" id="inputImage25">
-                                    <img id="img25">
+                                    <input type="file" id="inputImage25" name="inputImage25" onchange="readURL(this)">
+                                    <input type="submit" value="Cargar" id="subCarga25">
+                                    <input type="button" value="Borrar">
+                                    <img id="img25" src="" width="500" height="auto">
                                 </form>
                             </div>
                         </div>
@@ -961,8 +1010,10 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm26" enctype="multipart/form-data">
-                                    <input type="file" id="inputImage26">
-                                    <img id="img26">
+                                    <input type="file" id="inputImage26" name="inputImage26" onchange="readURL(this)">
+                                    <input type="submit" value="Cargar" id="subCarga26">
+                                    <input type="button" value="Borrar">
+                                    <img id="img26" src="" width="500" height="auto">
                                 </form>
                             </div>
                         </div>
@@ -977,8 +1028,10 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm27" enctype="multipart/form-data">
-                                    <input type="file" id="inputImage27">
-                                    <img id="img27">
+                                    <input type="file" id="inputImage27" name="inputImage27" onchange="readURL(this)">
+                                    <input type="submit" value="Cargar" id="subCarga27">
+                                    <input type="button" value="Borrar">
+                                    <img id="img27" src="" width="500" height="auto">
                                 </form>
                             </div>
                         </div>
@@ -993,8 +1046,10 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm28" enctype="multipart/form-data">
-                                    <input type="file" id="inputImage28">
-                                    <img id="img28">
+                                    <input type="file" id="inputImage28" name="inputImage28" onchange="readURL(this)">
+                                    <input type="submit" value="Cargar" id="subCarga28">
+                                    <input type="button" value="Borrar">
+                                    <img id="img28" src="" width="500" height="auto">
                                 </form>
                             </div>
                         </div>
@@ -1009,8 +1064,10 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm29" enctype="multipart/form-data">
-                                    <input type="file" id="inputImage29">
-                                    <img id="img29">
+                                    <input type="file" id="inputImage29" name="inputImage29" onchange="readURL(this)">
+                                    <input type="submit" value="Cargar" id="subCarga29">
+                                    <input type="button" value="Borrar">
+                                    <img id="img29" src="" width="500" height="auto">
                                 </form>
                             </div>
                         </div>
@@ -1025,8 +1082,10 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm30" enctype="multipart/form-data">
-                                    <input type="file" id="inputImage30">
-                                    <img id="img30">
+                                    <input type="file" id="inputImage30" name="inputImage30" onchange="readURL(this)">
+                                    <input type="submit" value="Cargar" id="subCarga30">
+                                    <input type="button" value="Borrar">
+                                    <img id="img30" src="" width="500" height="auto">
                                 </form>
                             </div>
                         </div>
