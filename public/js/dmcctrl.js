@@ -12,7 +12,7 @@ frmProveedor = document.getElementById('frmProveedor'),
 frmUsuarioPlanoDetail = document.getElementById('frmUsuarioPlanoDetalle');
 // cboProv = document.getElementById('cboProveedor');
 
-//VARIABLES PANEL CAMPOS
+//#region VARIABLES PANEL CAMPOS
 var divMensajeCampo = document.getElementById('divMensajeCampo'),
     divGuardarCancelar = document.getElementById('divGuardarCancelar'),
     inNombreProyectoCampo = document.getElementById('inNombreProyCampo'),
@@ -21,6 +21,7 @@ var divMensajeCampo = document.getElementById('divMensajeCampo'),
     inImagenCampo = document.getElementById('inImagenCampo');
 tblProyectoDocumento = document.getElementById('tblProyectoDocumento');
 frmDocumentoMaestroProy = document.getElementById('frmDocumentoMaestro');
+//#endregion
 
 //VARIABLES PANEL VISTA
 let divMensajeVista = document.getElementById('divMensajeVista');
@@ -401,7 +402,7 @@ let docuMaestroCampos = () => {
             fila.innerHTML += ('<td>' + listProyecto[i].proyecto.proveedor.VC_DESCRIPCION + '</td>');
             fila.innerHTML += ('<td>' + listProyecto[i].proyecto.VC_NOMBRE + '</td>');
             fila.innerHTML += ('<td>' + listProyecto[i].proyecto.VC_DESCRIPCION + '</td>');
-            fila.innerHTML += ('<td><input type="button" onclick= "AddCampo(this)" value="AC">&nbsp&nbsp<input type="button" onclick="obtenerIdDocumento(this)" value="VER"></td>');
+            fila.innerHTML += ('<td><input type="button" onclick= "AddCampo(this)" value="AC">&nbsp&nbsp<input type="button" onclick="" value="VER"></td>');
             tblProyectoDocumento.appendChild(fila);
         }
     };
@@ -416,11 +417,8 @@ let docuMaestroCampos = () => {
 }
 
 let AddCampo = (e) => {
-    var idDocumentoMaestro = e.parentNode.parentElement.cells[0].innerHTML,
-        nombreProyecto = e.parentNode.parentElement.cells[3].innerHTML;
-
-    inIdDocumentoMaestro.value = idDocumentoMaestro;
-    inNombreProyectoCampo.value = nombreProyecto;
+    inIdDocumentoMaestro.value = e.parentNode.parentElement.cells[0].innerHTML;
+    inNombreProyectoCampo.value = e.parentNode.parentElement.cells[3].innerHTML;
     divGuardarCancelar.style.display = "block";
     divMensajeCampo.style.display = "none";
 }
@@ -486,14 +484,6 @@ let obtenerDocumentoMaestro = (idProyecto) => {
     petDocumento.send(pdmIdProyecto);
 }
 
-let obtenerIdDocumento = (e) => {
-    divMensajeCampo.style.display = "none";
-    let idDocumentoMaestro = e.parentNode.parentElement.cells[0].innerHTML;
-    document.getElementById('idDocumentoMaestro').value = idDocumentoMaestro;
-    let frmDocumento = document.getElementById('frmCallDocument');
-    frmDocumento.submit();
-}
-
 //FUNCIONES PANEL VISTA
 let listarDocPlanoUsuario = () => {
     let petLista = new XMLHttpRequest();
@@ -512,7 +502,7 @@ let listarDocPlanoUsuario = () => {
             fila.innerHTML += (`<td>${listDocUsuario[i].PLANO}</td>`);
             fila.innerHTML += (`<td>${listDocUsuario[i].USUARIO}</td>`);
             fila.innerHTML += (`<td>${listDocUsuario[i].FECHAENTREGA}</td>`);
-            fila.innerHTML += (`<td><a target="_blank" onclick="obtenerIdDocumentoVista(this)" href="docPlano" class="btn btn-info">V</a>&nbsp&nbsp<input type="button" class="btn btn-info" value="D"></td>`);
+            fila.innerHTML += (`<td><a target="_blank" onclick="obtenerIdDocumentoVista(this)" href="verDocPlano" class="btn btn-info">V</a>&nbsp&nbsp<input type="button" class="btn btn-info" value="D"></td>`);
             tblPanelVista.appendChild(fila);
         }
     }
@@ -548,7 +538,7 @@ let buscarDocPlanoUsuario = (e) => {
             fila.innerHTML += (`<td>${listDocUsuario[i].PLANO}</td>`);
             fila.innerHTML += (`<td>${listDocUsuario[i].USUARIO}</td>`);
             fila.innerHTML += (`<td>${listDocUsuario[i].FECHAENTREGA}</td>`);
-            fila.innerHTML += (`<td><a target="_blank" onclick="obtenerIdDocumentoVista(this)" href="docPlano" class="btn btn-info">V</a>&nbsp&nbsp<input type="button" class="btn btn-info" value="D"></td>`);
+            fila.innerHTML += (`<td><a target="_blank" onclick="obtenerIdDocumentoVista(this)" href="verDocPlano" class="btn btn-info">V</a>&nbsp&nbsp<input type="button" class="btn btn-info" value="D"></td>`);
             tblPanelVista.appendChild(fila);
         }
     }

@@ -20,19 +20,4 @@ class camposDocumentoMaestroController extends Controller
         $cdm->save();
         return response()->json('El campos ha sido agregado correctamente');
     }
-
-    public function listarCampos (Request $request){
-        $usuario = session('usu');
-        $idDocumentoMaestro = $request->input('idDocumentoMaestro');
-        // $idDocumentoMaestro2 = $request->input('valorprueba');
-        $listaCampos = camposDocumentoMaestroModel::where('IN_ID_DOC_MAESTRO',$idDocumentoMaestro)
-                                                    ->get();
-        $documentoMaestro = documentoMaestroModel::with('proyecto.proveedor')
-                                                    ->where('IN_ID_DOC_MAESTRO',$idDocumentoMaestro)
-                                                    ->first();
-        return view('docTemplate',array(
-            'campos' => $listaCampos,
-            'datosDocumento' => $documentoMaestro
-        ));
-    }
 }

@@ -7,9 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="css/docTemplate.css">
-    <!-- Kartik -->
-    <link rel="stylesheet" href="kartik-v/css/fileinput.css">
-    <link rel="stylesheet" href="kartik-v/themes/explorer/theme.css">
     <title>Document</title>
 </head>
 
@@ -1097,11 +1094,6 @@
     </div>
     <script src="js/app.js" charset="utf-8"></script>
     <script src="js/docTemplate.js" type="text/javascript"></script>
-    <!-- kartik-v -->
-    <script src="kartik-v/js/plugins/sortable.min.js" type="text/javascript"></script>
-    <script src="kartik-v/js/fileinput.js" type="text/javascript"></script>
-    <script src="kartik-v/themes/explorer/theme.js" type="text/javascript"></script>
-    <script src="kartik-v/js/plugins/purify.min.js" type="text/javascript"></script>
 </body>
 
 </html>

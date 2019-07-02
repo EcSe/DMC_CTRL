@@ -18,7 +18,7 @@ class camposDocumentoPlanoController extends Controller
                                                             ->get();
         $listCamposDocuPlano = camposDocumentoPlanoModel::where('IN_ID_DOC_PLANO',$idDocPlano)
                                                         ->get();
-     
+        
         return response()->json([
             'camposMaestro' => $listCamposDocuMaestro,
             'camposPlano' => $listCamposDocuPlano

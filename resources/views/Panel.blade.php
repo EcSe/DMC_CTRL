@@ -75,13 +75,6 @@
                     </form>
                     <div class="row">
                         <div class="col-md-12">
-                            <form action="{{ route('documento') }}" method="POST" target="_blank" id="frmDocumentoVista">
-                                <input type="hidden" id="inVistaIdDocumentoPlano" name="inVistaIdDocumentoPlano">
-                            </form>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
                             <table id="tblVistaDoc">
                             </table>
                         </div>
@@ -254,13 +247,6 @@
                             </div>
                         </div>
                     </form>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <form action="{{route('documento')}}" method="POST" id="frmCallDocument" target="_blank">
-                                <input type="hidden" id="idDocumentoMaestro" name="idDocumentoMaestro">
-                            </form>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col-md-12">
                             <table id="tblProyectoDocumento"></table>

@@ -200,10 +200,6 @@ let readURL = (input) => {
     }
 }
 
-// $("#inputImage1").change(function() {
-//     readURL(this);
-// });
-
 //Inicio de captura de form Imagenes
 let guardarImagen = (v, f) => {
     v.preventDefault();

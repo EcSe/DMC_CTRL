@@ -41,15 +41,9 @@ Route::post('/agregarDocumentPlanoUsuario','docPlanoUsuarioDetalleController@agr
 Route::get('/listarDocumentoMaestro','documentoMaestroController@listar');
 Route::post('/agregarCampoDocumento','camposDocumentoMaestroController@Agregar');
 Route::post('/listarCampos','camposDocumentoMaestroController@listarCampos');
-
-Route::post('documentoMaestro',array(
-    'as' => 'documento',
-    'uses' => 'camposDocumentoMaestroController@listarCampos'
-));
-
-Route::get('docPlano', function (){
+Route::get('verDocPlano', function (){
     return view('docPlantillas');
-});
+}); /*---> Ruta para el href de la seccion de vistas */
 
 //RUTAS AJAX PARA PANEL VISTA
 Route::post('/buscarDocUsuario','docPlanoUsuarioDetalleController@buscar');
