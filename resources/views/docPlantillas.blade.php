@@ -26,7 +26,11 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane fade show active" id="tabCamposTexto" name="tabCamposTexto" role="tabpanel">
-                <h1>Campos Texto</h1>
+                <div class=" flex flex-row justify-around bg-green-200 py-2 m-6">
+                    <div class="text-center text-lg">Proveedor: <span class="italic" id="spProveedor"></span></div>
+                    <div class="text-center text-lg">Proyecto: <span class="italic" id="spProyecto"></span> </div>
+                    <div class="text-center text-lg">Plano: <span class="italic" id="spPlano"></span></div>
+                </div>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
@@ -545,7 +549,11 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="tabCamposImagen" name="tabCamposImagen" role="tabpanel">
-                <h1>Campos Imagen</h1>
+                <div class=" flex flex-row justify-around bg-green-200 py-2 m-6">
+                    <div class="text-center text-lg">Proveedor: <span class="italic" id="spiProveedor"></span></div>
+                    <div class="text-center text-lg">Proyecto: <span class="italic" id="spiProyecto"></span> </div>
+                    <div class="text-center text-lg">Plano: <span class="italic" id="spiPlano"></span></div>
+                </div>
                 <div class="container-fluid">
                     <div class="row" id="div1" style="display: none;">
                         <div class="col-md-12 form-group" style="display: inline-flex">

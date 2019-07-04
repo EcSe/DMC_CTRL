@@ -557,8 +557,14 @@ let buscarDocPlanoUsuario = (e) => {
     petDocumentoUsuario.send(parametros);
 }
 let obtenerIdDocumentoVista = (e) => {
-    let idDocumentoPlano = e.parentNode.parentElement.cells[0].innerHTML;
+    let idDocumentoPlano = e.parentNode.parentElement.cells[0].innerHTML,
+        nombreProveedor = e.parentNode.parentElement.cells[1].innerHTML,
+        nombreProyecto = e.parentNode.parentElement.cells[2].innerHTML,
+        nombrePlano = e.parentNode.parentElement.cells[3].innerHTML;
     sessionStorage.setItem('idDocPlano', idDocumentoPlano);
+    sessionStorage.setItem('nombreProveedor', nombreProveedor);
+    sessionStorage.setItem('nombreProyecto', nombreProyecto);
+    sessionStorage.setItem('nombrePlano', nombrePlano);
 }
 
 

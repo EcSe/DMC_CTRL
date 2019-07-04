@@ -165,11 +165,15 @@ let verDocumento = () => {
     }
     pet.onreadystatechange = () => {
         if (pet.readyState == 4 && pet.status == 200) {
-
+            document.getElementById('spProveedor').innerHTML = sessionStorage.getItem('nombreProveedor');
+            document.getElementById('spProyecto').innerHTML = sessionStorage.getItem('nombreProyecto');
+            document.getElementById('spPlano').innerHTML = sessionStorage.getItem('nombrePlano');
+            document.getElementById('spiProveedor').innerHTML = sessionStorage.getItem('nombreProveedor');
+            document.getElementById('spiProyecto').innerHTML = sessionStorage.getItem('nombreProyecto');
+            document.getElementById('spiPlano').innerHTML = sessionStorage.getItem('nombrePlano');
         }
     }
     pet.send(param);
-    //localStorage.removeItem('idDocPlano');
 }
 
 let guardarDocumento = (e) => {
@@ -178,7 +182,7 @@ let guardarDocumento = (e) => {
     let peticion = new XMLHttpRequest();
     let frmData = new FormData(frmCamposTexto);
     frmData.append('idDocPlano', idDocPlano);
-    peticion.open('POST', '/agregarImagenes');
+    peticion.open('POST', '/agregarCamposPlano');
     peticion.onload = () => {}
     peticion.onreadystatechange = () => {
         if (peticion.readyState === 4 && peticion.status === 200) {
