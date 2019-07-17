@@ -39,14 +39,14 @@
                             <div class="col-md-4"></div>
                         </div>
                     </div>
-                    <form id="frmCamposTexto" enctype="multipart/form-data">
+                    <form class="" id="frmCamposTexto" enctype="multipart/form-data">
                         <div class="row" id="r1" style="display: none;">
                             <div class="col-md-12 form-group" style="display: inline-flex">
                                 <div class="col-md-4">
                                     <label id="lblc1"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c1" name="c1">
+                                    <input class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal" type="text" id="c1" name="c1">
                                 </div>
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                                     <label id="lblc2"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c2" name="c2">
+                                    <input class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal" type="text" id="c2" name="c2">
                                 </div>
                             </div>
                         </div>
@@ -66,7 +66,7 @@
                                     <label id="lblc3"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c3" name="c3">
+                                    <input class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal" type="text" id="c3" name="c3">
                                 </div>
                             </div>
                         </div>
@@ -76,7 +76,7 @@
                                     <label id="lblc4"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c4" name="c4">
+                                    <input class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal" type="text" id="c4" name="c4">
                                 </div>
                             </div>
                         </div>
@@ -86,7 +86,7 @@
                                     <label id="lblc5"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c5" name="c5">
+                                    <input class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal" type="text" id="c5" name="c5">
                                 </div>
                             </div>
                         </div>
@@ -96,7 +96,7 @@
                                     <label id="lblc6"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c6" name="c6">
+                                    <input class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal" type="text" id="c6" name="c6">
                                 </div>
                             </div>
                         </div>
@@ -106,7 +106,7 @@
                                     <label id="lblc7"></label>
                                 </div>
                                 <div class="col-md-8" id="r8">
-                                    <input type="text" id="c7" name="c7">
+                                    <input class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal" type="text" id="c7" name="c7">
                                 </div>
                             </div>
                         </div>
@@ -116,7 +116,7 @@
                                     <label id="lblc8"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c8" name="c8">
+                                    <input class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal" type="text" id="c8" name="c8">
                                 </div>
                             </div>
                         </div>
@@ -126,7 +126,7 @@
                                     <label id="lblc9"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c9" name="c9">
+                                    <input class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal" type="text" id="c9" name="c9">
                                 </div>
                             </div>
                         </div>
@@ -136,7 +136,7 @@
                                     <label id="lblc10"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c10" name="c10">
+                                    <input class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal" type="text" id="c10" name="c10">
                                 </div>
                             </div>
                         </div>
@@ -146,7 +146,7 @@
                                     <label id="lblc11"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c11" name="c11">
+                                    <input class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal" type="text" id="c11" name="c11">
                                 </div>
                             </div>
                         </div>
@@ -156,7 +156,7 @@
                                     <label id="lblc12"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c12" name="c12">
+                                    <input class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal" type="text" id="c12" name="c12">
                                 </div>
                             </div>
                         </div>
@@ -166,7 +166,7 @@
                                     <label id="lblc13"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c13" name="c13">
+                                    <input class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal" type="text" id="c13" name="c13">
                                 </div>
                             </div>
                         </div>
@@ -176,7 +176,7 @@
                                     <label id="lblc14"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c14" name="c14">
+                                    <input class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal" type="text" id="c14" name="c14">
                                 </div>
                             </div>
                         </div>
@@ -186,7 +186,7 @@
                                     <label id="lblc15"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c15" name="c15">
+                                    <input class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal" type="text" id="c15" name="c15">
                                 </div>
                             </div>
                         </div>
@@ -196,7 +196,7 @@
                                     <label id="lblc16"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c16" name="c16">
+                                    <input class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal" type="text" id="c16" name="c16">
                                 </div>
                             </div>
                         </div>
@@ -206,7 +206,7 @@
                                     <label id="lblc17"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c17" name="c17">
+                                    <input class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal" type="text" id="c17" name="c17">
                                 </div>
                             </div>
                         </div>
@@ -216,7 +216,7 @@
                                     <label id="lblc18"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c18" name="c18">
+                                    <input type="text" id="c18" name="c18" class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal">
                                 </div>
                             </div>
                         </div>
@@ -226,7 +226,7 @@
                                     <label id="lblc19"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c19" name="c19">
+                                    <input type="text" id="c19" name="c19" class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal">
                                 </div>
                             </div>
                         </div>
@@ -236,7 +236,7 @@
                                     <label id="lblc20"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c20" name="c20">
+                                    <input type="text" id="c20" name="c20" class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal">
                                 </div>
                             </div>
                         </div>
@@ -246,7 +246,7 @@
                                     <label id="lblc21"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c21" name="c21">
+                                    <input type="text" id="c21" name="c21" class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal">
                                 </div>
                             </div>
                         </div>
@@ -256,7 +256,7 @@
                                     <label id="lblc22"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c22" name="c22">
+                                    <input type="text" id="c22" name="c22" class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal">
                                 </div>
                             </div>
                         </div>
@@ -266,7 +266,7 @@
                                     <label id="lblc23"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c23" name="c23">
+                                    <input type="text" id="c23" name="c23" class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal">
                                 </div>
                             </div>
                         </div>
@@ -286,7 +286,7 @@
                                     <label id="lblc25"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c25" name="c25">
+                                    <input type="text" id="c25" name="c25" class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal">
                                 </div>
                             </div>
                         </div>
@@ -296,7 +296,7 @@
                                     <label id="lblc26"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c26" name="c26">
+                                    <input type="text" id="c26" name="c26" class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal">
                                 </div>
                             </div>
                         </div>
@@ -306,7 +306,7 @@
                                     <label id="lblc27"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c27" name="c27">
+                                    <input type="text" id="c27" name="c27" class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal">
                                 </div>
                             </div>
                         </div>
@@ -316,7 +316,7 @@
                                     <label id="lblc28"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c28" name="c28">
+                                    <input type="text" id="c28" name="c28" class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal">
                                 </div>
                             </div>
                         </div>
@@ -326,7 +326,7 @@
                                     <label id="lblc29"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c29" name="c29">
+                                    <input type="text" id="c29" name="c29" class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal">
                                 </div>
                             </div>
                         </div>
@@ -336,7 +336,7 @@
                                     <label id="lblc30"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c30" name="c30">
+                                    <input type="text" id="c30" name="c30" class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal">
                                 </div>
                             </div>
                         </div>
@@ -346,7 +346,7 @@
                                     <label id="lblc31"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c31" name="c31">
+                                    <input type="text" id="c31" name="c31" class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal">
                                 </div>
                             </div>
                         </div>
@@ -356,7 +356,7 @@
                                     <label id="lblc32"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c32" name="c32">
+                                    <input type="text" id="c32" name="c32" class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal">
                                 </div>
                             </div>
                         </div>
@@ -366,7 +366,7 @@
                                     <label id="lblc33"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c33" name="c33">
+                                    <input type="text" id="c33" name="c33" class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal">
                                 </div>
                             </div>
                         </div>
@@ -376,7 +376,7 @@
                                     <label id="lblc34"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c34" name="c34">
+                                    <input type="text" id="c34" name="c34" class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal">
                                 </div>
                             </div>
                         </div>
@@ -386,7 +386,7 @@
                                     <label id="lblc35"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c35" name="c35">
+                                    <input type="text" id="c35" name="c35" class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal">
                                 </div>
                             </div>
                         </div>
@@ -396,7 +396,7 @@
                                     <label id="lblc36"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c36" name="c36">
+                                    <input type="text" id="c36" name="c36" class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal">
                                 </div>
                             </div>
                         </div>
@@ -406,7 +406,7 @@
                                     <label id="lblc37"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c37" name="c37">
+                                    <input type="text" id="c37" name="c37" class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal">
                                 </div>
                             </div>
                         </div>
@@ -416,7 +416,7 @@
                                     <label id="lblc38"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c38" name="c38">
+                                    <input type="text" id="c38" name="c38" class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal">
                                 </div>
                             </div>
                         </div>
@@ -426,7 +426,7 @@
                                     <label id="lblc39"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c39" name="c39">
+                                    <input type="text" id="c39" name="c39" class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal">
                                 </div>
                             </div>
                         </div>
@@ -436,7 +436,7 @@
                                     <label id="lblc40"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c40" name="c40">
+                                    <input type="text" id="c40" name="c40" class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal">
                                 </div>
                             </div>
                         </div>
@@ -446,7 +446,7 @@
                                     <label id="lblc41"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c41" name="c41">
+                                    <input type="text" id="c41" name="c41" class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal">
                                 </div>
                             </div>
                         </div>
@@ -456,7 +456,7 @@
                                     <label id="lblc42"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c42" name="c42">
+                                    <input type="text" id="c42" name="c42" class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal">
                                 </div>
                             </div>
                         </div>
@@ -466,7 +466,7 @@
                                     <label id="lblc43"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c43" name="c43">
+                                    <input type="text" id="c43" name="c43" class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal">
                                 </div>
                             </div>
                         </div>
@@ -476,7 +476,7 @@
                                     <label id="lblc44"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c44" name="c44">
+                                    <input type="text" id="c44" name="c44" class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal">
                                 </div>
                             </div>
                         </div>
@@ -486,7 +486,7 @@
                                     <label id="lblc45"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c45" name="c45">
+                                    <input type="text" id="c45" name="c45" class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal">
                                 </div>
                             </div>
                         </div>
@@ -496,7 +496,7 @@
                                     <label id="lblc46"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c46" name="c46">
+                                    <input type="text" id="c46" name="c46" class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal">
                                 </div>
                             </div>
                         </div>
@@ -506,7 +506,7 @@
                                     <label id="lblc47"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c47" name="c47">
+                                    <input type="text" id="c47" name="c47" class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal">
                                 </div>
                             </div>
                         </div>
@@ -516,7 +516,7 @@
                                     <label id="lblc48"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c48" name="c48">
+                                    <input type="text" id="c48" name="c48" class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal">
                                 </div>
                             </div>
                         </div>
@@ -526,7 +526,7 @@
                                     <label id="lblc49"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c49" name="c49">
+                                    <input type="text" id="c49" name="c49" class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal">
                                 </div>
                             </div>
                         </div>
@@ -536,13 +536,13 @@
                                     <label id="lblc50"></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="c50" name="c50">
+                                    <input type="text" id="c50" name="c50" class=" focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 appearance-none leading-normal">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12" style="text-align: center">
-                                <input type="submit" class="btn btn-success" id="inGuardarCampos" value="Guardar">
+                                <input type="submit" id="inGuardarCampos" value="Guardar" class="bg-green-500 hover:bg-green-700 rounded text-white font-semibold py-2 px-4">
                             </div>
                         </div>
                     </form>

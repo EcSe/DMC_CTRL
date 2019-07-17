@@ -29,60 +29,53 @@
             </li>
             @endif
         </ul>
-        <div class="row">
-            <div class="col-md-12 form-group" style="display:inline-flex">
-                <div class="col-md-8">
-                    <p>Bienvenido, {{$usuarioActual->VC_NOMBRE}} {{$usuarioActual->VC_APELLIDOS}}</p>
-                </div>
-                <div class="col-md-4">
-                    <form action="{{ route('logout') }}" method="POST">
-                        <input type="submit" value="Salir" class="btnSalida btn btn-danger">
-                    </form>
-                </div>
+        <div class="flex my-3">
+            <div class="ml-3 w-2/3">
+                <p>Bienvenido, <span class="italic">{{$usuarioActual->VC_NOMBRE}} {{$usuarioActual->VC_APELLIDOS}}</span></p>
+            </div>
+            <div class="w-1/3 mr-3">
+                <form action="{{ route('logout') }}" method="POST">
+                    <input type="submit" value="Salir" class="bg-red-500 font-bold text-white rounded py-2 px-4 float-right mr-0 ml-3">
+                </form>
             </div>
         </div>
         <div class="tab-content">
             <div class="tab-pane fade show active" id="tabVistas" name="tabVistas" role="tabpanel">
-                <h1>Vistas</h1>
+                <h1 class="uppercase text-4xl">Vistas</h1>
                 <div class="divMensaje" id="divMensajeVista">
                     <p></p>
                 </div>
                 <div class="container-fluid">
                     <form id="frmVista">
                         @if($usuarioActual->IN_ID_PERFIL == 1)
-                        <div class="row">
-                            <div class="col-md-12 form-group" style="display: inline-flex" id="opcionesBusqueda">
-                                <div class="col-md-4">
-                                    <label for="opciones">Buscar por: </label>
-                                    <select id="selectOpciones" name="selectOpciones" required>
+                        <div class="md:flex md:justify-between" id="opcionesBusqueda">
+                            <div class="flex md:w-2/5  md:mr-3">
+                                <label for="opciones" class="flex-auto font-bold text-lg text-gray-700 md:self-center">Buscar por: </label>
+                                <select id="selectOpciones" name="selectOpciones" required class="flex-auto block bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 rounded shadow leading-tight focus:outline-none focus:shadow-outline md:my-4">
                                                 <option value="" selected disabled>--Elegir Criterio</option>
                                                 <option value="1">Usuario</option>
                                                 <option value="2">Proveedor</option>
                                                 <option value="3">Proyecto</option>
                                                 <option value="4">Plano</option>
-                                            </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="text" class="form-control" id="inValor" placeholder="Ingresar nombre o parte de el">
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="submit" class="btn btn-success" id="subBusqueda" value="Buscar" style="float: left">
-                                    <input type="button" class="btn btn-success" value="Por fecha" onclick="listarDocPlanoUsuario()" style="float: right">
-                                </div>
+                                </select>
+                            </div>
+                            <div class="my-3 md:w-2/5 md:mx-3">
+                                <input type="text" id="inValor" placeholder="Ingresar nombre o parte de el" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700  focus:outline-none focus:shadow-outline">
+                            </div>
+                            <div class="flex justify-between my-3 md:w-1/5">
+                                <input type="submit" class="btn btn-success md:px-2" id="subBusqueda" value="Buscar" style="float: left">
+                                <input type="button" class="btn btn-success md:mr-2 md:px-1 md:ml-3" value="Por fecha" onclick="listarDocPlanoUsuario()" style="float: right">
                             </div>
                         </div>
                         @endif
                     </form>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <table id="tblVistaDoc">
-                            </table>
-                        </div>
+                    <div class="w-full">
+                        <table id="tblVistaDoc">
+                        </table>
                     </div>
                 </div>
             </div>
             <div class="tab-pane fade" id="tabRegistro" name="tabRegistro" role="tabpanel">
-                <h1>Registros</h1>
                 <div class="divMensaje" id="divMensaje">
                 </div>
                 <div class="container">
@@ -92,7 +85,7 @@
                                 ELIGA UNA ACCION
                             </div>
                             <div class="col-md-4">
-                                <select id="cboAgregarTipo" name="cboAgregarTipo" onclick="controlFormularios()">
+                                <select id="cboAgregarTipo" name="cboAgregarTipo" onclick="controlFormularios()" class="flex-auto block bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
                                     <option value="0">Crear proveedor</option>
                                     <option value="1">Crear proyecto</option>
                                     <option value="2">Agregar plano</option>
@@ -102,18 +95,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="container-fluid" id="divAddProveedor" style="display: none">
+                <div class="container-fluid" id="divAddProveedor" style="display: block">
                     <form id="frmProveedor">
                         <div class="row">
                             <div class="col-md-12 form-group" style="display: inline-flex">
                                 <div class="col-md-4">
-                                    <input type="text" id="inNombreProv" placeholder="Nombre Proveedor" required>
+                                    <input type="text" id="inNombreProv" placeholder="Nombre Proveedor" required class="w-full  bg-gray-200 rounded py-3 px-4 focus:bg-white">
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="text" id="inDescripcionProv" placeholder="Descripcion Proveedor" required>
+                                    <input type="text" id="inDescripcionProv" placeholder="Descripcion Proveedor" required class="w-full  bg-gray-200 rounded py-3 px-4 focus:bg-white">
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="text" id="inEmailProv" placeholder="Email Proveedor" required>
+                                    <input class="w-full  bg-gray-200 rounded py-3 px-4 focus:bg-white" type="text" id="inEmailProv" placeholder="Email Proveedor" required>
                                 </div>
                             </div>
                         </div>
@@ -220,7 +213,7 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="tabCampos" name="tabCampos" role="tabpanel">
-                <h1>CAMPOS</h1>
+                <h1 class="uppercase text-4xl">CAMPOS</h1>
                 <div class="divMensajeCampo" id="divMensajeCampo">
                     <p></p>
                 </div>
@@ -255,7 +248,7 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="tabRegistroUsuario" name="tabRegistroUsuario" role="tabpanel">
-                <h1>REGISTRO USUARIOS</h1>
+                <h1 class="uppercase text-4xl">REGISTRO USUARIOS</h1>
                 <div class="container">
                     <form id="frmUsuario" action="" method="">
                         <div class="row">

@@ -53,3 +53,6 @@ Route::post('/verDocumento','camposDocumentoPlanoController@listar');
 //RUTAS DOCUMENTO
 Route::post('/agregarImagenes','camposDocumentoPlanoController@agregarImagenes');
 Route::post('/agregarCamposPlano','camposDocumentoPlanoController@agregar');
+
+//RUTA DESCARGA DOCUMENTO
+Route::post('/downloadExcel','camposDocumentoPlanoController@Exportar');

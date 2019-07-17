@@ -502,7 +502,8 @@ let listarDocPlanoUsuario = () => {
             fila.innerHTML += (`<td>${listDocUsuario[i].PLANO}</td>`);
             fila.innerHTML += (`<td>${listDocUsuario[i].USUARIO}</td>`);
             fila.innerHTML += (`<td>${listDocUsuario[i].FECHAENTREGA}</td>`);
-            fila.innerHTML += (`<td><a target="_blank" onclick="obtenerIdDocumentoVista(this)" href="verDocPlano" class="btn btn-info">V</a>&nbsp&nbsp<input type="button" class="btn btn-info" value="D"></td>`);
+            fila.innerHTML += (`<td><a target="_blank" onclick="obtenerIdDocumentoVista(this)" href="verDocPlano" class="btn btn-info">Ver</a>&nbsp&nbsp
+                                <input type="button" onclick="descargarDocumentoVista(this)" class="btn btn-info" value="Descargar"></td>`);
             tblPanelVista.appendChild(fila);
         }
     }
@@ -538,7 +539,8 @@ let buscarDocPlanoUsuario = (e) => {
             fila.innerHTML += (`<td>${listDocUsuario[i].PLANO}</td>`);
             fila.innerHTML += (`<td>${listDocUsuario[i].USUARIO}</td>`);
             fila.innerHTML += (`<td>${listDocUsuario[i].FECHAENTREGA}</td>`);
-            fila.innerHTML += (`<td><a target="_blank" onclick="obtenerIdDocumentoVista(this)" href="verDocPlano" class="btn btn-info">V</a>&nbsp&nbsp<input type="button" class="btn btn-info" value="D"></td>`);
+            fila.innerHTML += (`<td><a target="_blank" onclick="obtenerIdDocumentoVista(this)" href="verDocPlano" class="btn btn-info">V</a>&nbsp&nbsp
+                                <input type="button" onclick="descargarDocumentoVista(this)" class="btn btn-info" value="D"></td>`);
             tblPanelVista.appendChild(fila);
         }
     }
@@ -567,6 +569,31 @@ let obtenerIdDocumentoVista = (e) => {
     sessionStorage.setItem('nombrePlano', nombrePlano);
 }
 
+let descargarDocumentoVista = (e) => {
+    let idDocumentoPlano = e.parentNode.parentElement.cells[0].innerHTML;
+    //No necesito usar un formulario, solo enviar archivos JSON
+    let data = { idDocPlano: idDocumentoPlano };
+    let init = {
+        method: "POST",
+        body: JSON.stringify(data), //frmIdDocPlano, 
+        headers: {
+            //'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/json'
+        }
+    }
+
+    fetch('/downloadExcel', init).then(response => response.blob())
+        .then((myblob) => {
+            let objectUrl = URL.createObjectURL(myblob);
+            let link = document.createElement('a');
+            link.href = objectUrl;
+            link.setAttribute('download', `PlanoNro${idDocumentoPlano}.xlsx`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+
+}
 
 //FUNCIONES PANEL REGISTRO USUARIOS
 
