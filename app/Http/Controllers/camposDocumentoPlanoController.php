@@ -7,6 +7,7 @@ use App\Models\camposDocumentoMaestroModel;
 use App\Models\camposDocumentoPlanoModel;
 use App\Models\documentoPlanoModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 //Exportacion
 use Illuminate\Support\Facades\Storage;
 
@@ -14,17 +15,19 @@ class camposDocumentoPlanoController extends Controller
 {
     public function listar()
     {
-        $idDocPlano = $_POST['id'];
+        $idDocPlano = $_POST['idDocPlano'];
         $docuPlano = documentoPlanoModel::where('IN_ID_DOC_PLANO', $idDocPlano)
             ->first();
         $listCamposDocuMaestro = camposDocumentoMaestroModel::where('IN_ID_DOC_MAESTRO', $docuPlano->IN_ID_DOC_MAESTRO)
             ->get();
         $listCamposDocuPlano = camposDocumentoPlanoModel::where('IN_ID_DOC_PLANO', $idDocPlano)
             ->get();
+        $nombres_prov_proy_pl = DB::select('CALL USP_VC_NOMBRES(?)',array($docuPlano->IN_ID_PLANO));
 
         return response()->json([
             'camposMaestro' => $listCamposDocuMaestro,
             'camposPlano' => $listCamposDocuPlano,
+            'nombresProvProyPl' => $nombres_prov_proy_pl
         ]);
     }
 

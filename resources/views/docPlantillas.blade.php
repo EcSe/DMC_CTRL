@@ -540,7 +540,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" id="guardarTexto">
                             <div class="col-md-12" style="text-align: center">
                                 <input type="submit" id="inGuardarCampos" value="Guardar" class="bg-green-500 hover:bg-green-700 rounded text-white font-semibold py-2 px-4">
                             </div>

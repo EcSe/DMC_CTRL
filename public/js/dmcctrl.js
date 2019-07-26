@@ -1,4 +1,4 @@
-// Variables Globales
+//#region Variables Globales
 var divMensaje = document.getElementById('divMensaje'),
     divProveedor = document.getElementById('divAddProveedor'),
     divProyecto = document.getElementById('divAddProyecto'),
@@ -11,6 +11,7 @@ frmProveedor = document.getElementById('frmProveedor'),
     frmUsuario = document.getElementById('frmUsuario');
 frmUsuarioPlanoDetail = document.getElementById('frmUsuarioPlanoDetalle');
 // cboProv = document.getElementById('cboProveedor');
+//#endregion
 
 //#region VARIABLES PANEL CAMPOS
 var divMensajeCampo = document.getElementById('divMensajeCampo'),
@@ -23,11 +24,12 @@ tblProyectoDocumento = document.getElementById('tblProyectoDocumento');
 frmDocumentoMaestroProy = document.getElementById('frmDocumentoMaestro');
 //#endregion
 
-//VARIABLES PANEL VISTA
+//#region VARIABLES PANEL VISTA
 let divMensajeVista = document.getElementById('divMensajeVista');
 tblPanelVista = document.getElementById('tblVistaDoc'),
     frmVista = document.getElementById('frmVista');
-//VARIABLES PANEL REGISTRO
+
+//#region VARIABLES PANEL REGISTRO
 let tblUsuario = document.getElementById('tblUsuario');
 
 frmProveedor.addEventListener('submit', function(e) {
@@ -52,8 +54,9 @@ frmUsuarioPlanoDetail.addEventListener('submit', (e) => {
 frmVista.addEventListener('submit', (e) => {
     buscarDocPlanoUsuario(e);
 });
+//#endregion
 
-//PANTALLA PANEL DE CONTROL
+// PANTALLA PANEL DE CONTROL
 function controlFormularios() {
     divMensaje.style.display = "none";
     var cboValue = document.getElementById('cboAgregarTipo').value;
@@ -125,7 +128,7 @@ function listaProveedor() {
             fila.innerHTML += ('<td>' + listProve[i].VC_NOMBRE + '</td>');
             fila.innerHTML += ('<td>' + listProve[i].VC_DESCRIPCION + '</td>');
             fila.innerHTML += ('<td>' + listProve[i].VC_EMAIL + '</td>');
-            fila.innerHTML += ('<td><input type="button" value="A" onclick="addInputProy(this)"></td>');
+            fila.innerHTML += ('<td><input type="button" class="bg-blue-600 text-white rounded py-1 px-3" value="A" onclick="addInputProy(this)"></td>');
 
             tblProyecto.appendChild(fila);
         }
@@ -196,7 +199,7 @@ function listaProyecto() {
             fila.innerHTML += ('<td>' + listProyecto[i].proveedor.VC_DESCRIPCION + '</td>');
             fila.innerHTML += ('<td>' + listProyecto[i].VC_NOMBRE + '</td>');
             fila.innerHTML += ('<td>' + listProyecto[i].VC_DESCRIPCION + '</td>');
-            fila.innerHTML += ('<td><input type="button" value="A" onclick="addInputPlano(this)"></td>');
+            fila.innerHTML += ('<td><input type="button" class="bg-blue-600 text-white rounded py-1 px-3" value="A" onclick="addInputPlano(this)"></td>');
             tblPlano.appendChild(fila);
         }
     };
@@ -267,7 +270,7 @@ function listarPlano() {
             fila.innerHTML += ('<td>' + listPlano[i].proyecto.proveedor.VC_NOMBRE + '</td>');
             fila.innerHTML += ('<td>' + listPlano[i].proyecto.VC_NOMBRE + '</td>');
             fila.innerHTML += ('<td>' + listPlano[i].VC_NOMBRE + '</td>');
-            fila.innerHTML += ('<td><input type="button" value="A" onclick="addInputUsuarioPlano(this)"></td>');
+            fila.innerHTML += ('<td><input type="button" value="A" class="bg-blue-600 text-white rounded py-1 px-3" onclick="addInputUsuarioPlano(this)"></td>');
 
             tblUsuarioPlano.appendChild(fila);
         }
@@ -402,7 +405,7 @@ let docuMaestroCampos = () => {
             fila.innerHTML += ('<td>' + listProyecto[i].proyecto.proveedor.VC_DESCRIPCION + '</td>');
             fila.innerHTML += ('<td>' + listProyecto[i].proyecto.VC_NOMBRE + '</td>');
             fila.innerHTML += ('<td>' + listProyecto[i].proyecto.VC_DESCRIPCION + '</td>');
-            fila.innerHTML += ('<td><input type="button" onclick= "AddCampo(this)" value="AC">&nbsp&nbsp<input type="button" onclick="" value="VER"></td>');
+            fila.innerHTML += (`<td><input type="button" onclick= "AddCampo(this)" class="text-white bg-blue-500 rounded py-1 px-3 mb-1 " value="AC">&nbsp&nbsp<input type="button" onclick="" class="text-white bg-blue-500 rounded py-1 px-3 mt-1" value="VER"></td>`);
             tblProyectoDocumento.appendChild(fila);
         }
     };
@@ -494,18 +497,38 @@ let listarDocPlanoUsuario = () => {
         tblPanelVista.innerHTML = `<thead><tr><th scope="col">PROVEEDOR</th><th scope="col">PROYECTO</th>
                                     <th scope="col">PLANO</th><th scope="col">USUARIO</th><th scope="col">ENTREGA</th>
                                     <th scope="col">ACCIONES</th></tr></thead>`;
-        for (let i = 0; listDocUsuario.length; i++) {
-            let fila = document.createElement('tr');
-            fila.innerHTML += (`<td style="display:none">${listDocUsuario[i].IDDOCUMENTO}</td>`);
-            fila.innerHTML += (`<td>${listDocUsuario[i].PROVEEDOR}</td>`);
-            fila.innerHTML += (`<td>${listDocUsuario[i].PROYECTO}</td>`);
-            fila.innerHTML += (`<td>${listDocUsuario[i].PLANO}</td>`);
-            fila.innerHTML += (`<td>${listDocUsuario[i].USUARIO}</td>`);
-            fila.innerHTML += (`<td>${listDocUsuario[i].FECHAENTREGA}</td>`);
-            fila.innerHTML += (`<td><a target="_blank" onclick="obtenerIdDocumentoVista(this)" href="verDocPlano" class="btn btn-info">Ver</a>&nbsp&nbsp
-                                <input type="button" onclick="descargarDocumentoVista(this)" class="btn btn-info" value="Descargar"></td>`);
-            tblPanelVista.appendChild(fila);
+        if (listDocUsuario.idPerfil === 1) {
+            for (let i = 0; listDocUsuario.listaVista.length; i++) {
+                let fila = document.createElement('tr');
+                fila.innerHTML += (`<td style="display:none">${listDocUsuario.listaVista[i].IDDOCUMENTO}</td>`);
+                fila.innerHTML += (`<td>${listDocUsuario.listaVista[i].PROVEEDOR}</td>`);
+                fila.innerHTML += (`<td>${listDocUsuario.listaVista[i].PROYECTO}</td>`);
+                fila.innerHTML += (`<td>${listDocUsuario.listaVista[i].PLANO}</td>`);
+                fila.innerHTML += (`<td>${listDocUsuario.listaVista[i].USUARIO}</td>`);
+                fila.innerHTML += (`<td>${listDocUsuario.listaVista[i].FECHAENTREGA}</td>`);
+                fila.innerHTML += (`<td><a target="_blank"  
+                                    href="verDocPlano?idDocPlano=${listDocUsuario.listaVista[i].IDDOCUMENTO}"
+                                     class="bg-blue-600 text-white rounded py-1 px-3 mb-2">Ver</a>&nbsp&nbsp
+                                    <input type="button" onclick="descargarDocumentoVista(this)" 
+                                    class="bg-blue-600 text-white rounded py-1 px-3 mt-2" value="Descargar"></td>`);
+                tblPanelVista.appendChild(fila);
+            }
+        } else {
+            for (let i = 0; listDocUsuario.listaVista.length; i++) {
+                let fila = document.createElement('tr');
+                fila.innerHTML += (`<td style="display:none">${listDocUsuario.listaVista[i].IDDOCUMENTO}</td>`);
+                fila.innerHTML += (`<td>${listDocUsuario.listaVista[i].PROVEEDOR}</td>`);
+                fila.innerHTML += (`<td>${listDocUsuario.listaVista[i].PROYECTO}</td>`);
+                fila.innerHTML += (`<td>${listDocUsuario.listaVista[i].PLANO}</td>`);
+                fila.innerHTML += (`<td>${listDocUsuario.listaVista[i].USUARIO}</td>`);
+                fila.innerHTML += (`<td>${listDocUsuario.listaVista[i].FECHAENTREGA}</td>`);
+                fila.innerHTML += (`<td><a target="_blank"  
+                                    href="verDocPlano?idDocPlano=${listDocUsuario.listaVista[i].IDDOCUMENTO}"
+                                     class="bg-blue-600 text-white rounded py-1 px-3 mb-2">Ver</a></td>`);
+                tblPanelVista.appendChild(fila);
+            }
         }
+
     }
 
     petLista.onreadystatechange = () => {
@@ -539,8 +562,11 @@ let buscarDocPlanoUsuario = (e) => {
             fila.innerHTML += (`<td>${listDocUsuario[i].PLANO}</td>`);
             fila.innerHTML += (`<td>${listDocUsuario[i].USUARIO}</td>`);
             fila.innerHTML += (`<td>${listDocUsuario[i].FECHAENTREGA}</td>`);
-            fila.innerHTML += (`<td><a target="_blank" onclick="obtenerIdDocumentoVista(this)" href="verDocPlano" class="btn btn-info">V</a>&nbsp&nbsp
-                                <input type="button" onclick="descargarDocumentoVista(this)" class="btn btn-info" value="D"></td>`);
+            fila.innerHTML += (`<td><a target="_blank"  
+                                href="verDocPlano?idDocPlano=${listDocUsuario[i].IDDOCUMENTO}"
+                                class="bg-blue-600 text-white rounded py-1 px-3 mb-2">Ver</a>&nbsp&nbsp
+                                <input type="button" onclick="descargarDocumentoVista(this)" 
+                                class="bg-blue-600 text-white rounded py-1 px-3 mt-2" value="Descargar"></td>`);
             tblPanelVista.appendChild(fila);
         }
     }
@@ -557,16 +583,6 @@ let buscarDocPlanoUsuario = (e) => {
     }
 
     petDocumentoUsuario.send(parametros);
-}
-let obtenerIdDocumentoVista = (e) => {
-    let idDocumentoPlano = e.parentNode.parentElement.cells[0].innerHTML,
-        nombreProveedor = e.parentNode.parentElement.cells[1].innerHTML,
-        nombreProyecto = e.parentNode.parentElement.cells[2].innerHTML,
-        nombrePlano = e.parentNode.parentElement.cells[3].innerHTML;
-    sessionStorage.setItem('idDocPlano', idDocumentoPlano);
-    sessionStorage.setItem('nombreProveedor', nombreProveedor);
-    sessionStorage.setItem('nombreProyecto', nombreProyecto);
-    sessionStorage.setItem('nombrePlano', nombrePlano);
 }
 
 let descargarDocumentoVista = (e) => {
@@ -610,7 +626,8 @@ let listarUsuario = () => {
             fila.innerHTML += (`<td style="displa:none">${userList[i].CH_ID_USUARIO}</td>`);
             fila.innerHTML += (`<td>${userList[i].VC_NOMBRE + userList[i].VC_APELLIDOS}</td>`);
             fila.innerHTML += (`<td>${userList[i].perfil.VC_DESCRIPCION}</td>`);
-            fila.innerHTML += (`<td><input type="button" value="U"><input type="button" value="D"></td>`);
+            fila.innerHTML += (`<td><input type="button"  class="bg-blue-600 text-white rounded py-1 px-3 mb-2 md:mx-3" value="U">
+                                <input type="button"  class="bg-blue-600 text-white rounded py-1 px-3 mt-2 md:mx-3" value="D"></td>`);
             tblUsuario.appendChild(fila);
         }
     }

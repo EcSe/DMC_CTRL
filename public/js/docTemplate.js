@@ -126,6 +126,10 @@ frmImagen30.addEventListener('submit', (e) => {
 });
 //#endregion
 
+//#region nombrex extraidos del url
+let parametrosURL = new URLSearchParams(document.location.search.substring(1));
+//#endregion
+
 //Eventos
 document.addEventListener('DOMContentLoaded', () => {
     verDocumento();
@@ -136,9 +140,9 @@ frmCamposTexto.addEventListener('submit', (e) => {
 
 let verDocumento = () => {
     let pet = new XMLHttpRequest();
-    const idDocPlano = sessionStorage.getItem('idDocPlano');
+    let idDocPlano = parametrosURL.get('idDocPlano');
     pet.open('POST', '/verDocumento');
-    let param = `id=${idDocPlano}`;
+    let param = `idDocPlano=${idDocPlano}`;
     pet.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     pet.onload = () => {
         let campos = JSON.parse(pet.responseText);
@@ -162,23 +166,24 @@ let verDocumento = () => {
                 document.getElementById(`${cPlano[k].VC_VALOR_CADENA_2}`).value = cPlano[k].VC_VALOR_CADENA_1;
             }
         }
+        //Agregando datos a los documentos
+        let nombres = campos.nombresProvProyPl;
+        document.getElementById('spProveedor').innerHTML = nombres[0].PROVEEDOR;
+        document.getElementById('spProyecto').innerHTML = nombres[0].PROYECTO;
+        document.getElementById('spPlano').innerHTML = nombres[0].PLANO;
+        document.getElementById('spiProveedor').innerHTML = nombres[0].PROVEEDOR;
+        document.getElementById('spiProyecto').innerHTML = nombres[0].PROYECTO;
+        document.getElementById('spiPlano').innerHTML = nombres[0].PLANO;
     }
     pet.onreadystatechange = () => {
-        if (pet.readyState == 4 && pet.status == 200) {
-            document.getElementById('spProveedor').innerHTML = sessionStorage.getItem('nombreProveedor');
-            document.getElementById('spProyecto').innerHTML = sessionStorage.getItem('nombreProyecto');
-            document.getElementById('spPlano').innerHTML = sessionStorage.getItem('nombrePlano');
-            document.getElementById('spiProveedor').innerHTML = sessionStorage.getItem('nombreProveedor');
-            document.getElementById('spiProyecto').innerHTML = sessionStorage.getItem('nombreProyecto');
-            document.getElementById('spiPlano').innerHTML = sessionStorage.getItem('nombrePlano');
-        }
+        if (pet.readyState == 4 && pet.status == 200) {}
     }
     pet.send(param);
 }
 
 let guardarDocumento = (e) => {
     e.preventDefault();
-    let idDocPlano = sessionStorage.getItem('idDocPlano');
+    let idDocPlano = parametrosURL.get('idDocPlano');
     let peticion = new XMLHttpRequest();
     let frmData = new FormData(frmCamposTexto);
     frmData.append('idDocPlano', idDocPlano);
@@ -206,7 +211,7 @@ let readURL = (input) => {
 //Inicio de captura de form Imagenes
 let guardarImagen = (v, f) => {
     v.preventDefault();
-    let idDocPlano = sessionStorage.getItem('idDocPlano');
+    let idDocPlano = parametrosURL.get('idDocPlano');
     let frmData = new FormData(f);
     frmData.append('idDocPlano', idDocPlano);
     let peticion = new XMLHttpRequest();

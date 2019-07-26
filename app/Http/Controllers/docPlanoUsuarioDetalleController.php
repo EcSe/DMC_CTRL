@@ -51,6 +51,9 @@ class docPlanoUsuarioDetalleController extends Controller
         }else {
             $lstVista = DB::select('CALL USP_LISTAR_DOCUMENTOS(?)',array($usuario->CH_ID_USUARIO));
         }
-        return response()->json($lstVista);
+        return response()->json([
+            'listaVista' => $lstVista,
+            'idPerfil' => $usuario->IN_ID_PERFIL 
+        ]);
     }
 }

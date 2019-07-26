@@ -41,7 +41,7 @@ Route::post('/agregarDocumentPlanoUsuario','docPlanoUsuarioDetalleController@agr
 Route::get('/listarDocumentoMaestro','documentoMaestroController@listar');
 Route::post('/agregarCampoDocumento','camposDocumentoMaestroController@Agregar');
 Route::post('/listarCampos','camposDocumentoMaestroController@listarCampos');
-Route::get('verDocPlano', function (){
+Route::get('/verDocPlano', function (){
     return view('docPlantillas');
 }); /*---> Ruta para el href de la seccion de vistas */
 
