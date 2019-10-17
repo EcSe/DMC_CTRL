@@ -8,6 +8,7 @@ use Maatwebsite\Excel\Concerns\ToCollection;
 use App\Models\camposDocumentoPlanoModel;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Concerns\WithMapping;
 
 class PosteImport implements FromQuery, WithTitle,WithMapping
 {
