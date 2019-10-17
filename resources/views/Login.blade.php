@@ -13,6 +13,7 @@
     <div class="container-login" style="background-image: url('Images/bg-01.jpg')">
         <div class="login-form">
             <form action="{{ route('loginUser') }}" method="post">
+            @csrf
                 <h2 class="text-center">Inicio de Sesion</h2>
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Usuario" name="idUsuario" id="idUsuario"
@@ -33,7 +34,7 @@
             </form>
         </div>
     </div>
-    <script src="js/app.js" charset="utf-8"></script>
+    <!-- <script src="js/app.js" charset="utf-8"></script> -->
 </body>
 
 </html>

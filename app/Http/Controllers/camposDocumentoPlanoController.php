@@ -13,35 +13,35 @@ use Illuminate\Support\Facades\Storage;
 
 class camposDocumentoPlanoController extends Controller
 {
-    public function listar()
+    public function listar($id)
     {
-        $idDocPlano = $_POST['idDocPlano'];
+        $idDocPlano = $id;
         $docuPlano = documentoPlanoModel::where('IN_ID_DOC_PLANO', $idDocPlano)
             ->first();
         $listCamposDocuMaestro = camposDocumentoMaestroModel::where('IN_ID_DOC_MAESTRO', $docuPlano->IN_ID_DOC_MAESTRO)
             ->get();
         $listCamposDocuPlano = camposDocumentoPlanoModel::where('IN_ID_DOC_PLANO', $idDocPlano)
             ->get();
-        $nombres_prov_proy_pl = DB::select('CALL USP_VC_NOMBRES(?)',array($docuPlano->IN_ID_PLANO));
+        $nombres_prov_proy_pl = DB::select('CALL USP_VC_NOMBRES(?)', array($docuPlano->IN_ID_PLANO));
 
         return response()->json([
             'camposMaestro' => $listCamposDocuMaestro,
             'camposPlano' => $listCamposDocuPlano,
-            'nombresProvProyPl' => $nombres_prov_proy_pl
+            'nombresProvProyPl' => $nombres_prov_proy_pl,
         ]);
     }
 
-    public function agregar(Request $request)
+    public function agregar(Request $request, $id)
     {
         $usuario = session('usu');
         $datos = $request->all();
-        $idDocPlano = $datos['idDocPlano'];
+        $idDocPlano = $id;
         for ($i = 0; $i < count($datos) - 1; $i++) {
             $campoPlano = camposDocumentoPlanoModel::where([
                 ['VC_VALOR_CADENA_2', 'c' . ($i + 1)],
                 ['IN_ID_DOC_PLANO', $idDocPlano],
             ])->first();
-            if (count((array) $campoPlano) > 0) {
+            if ($campoPlano) {
                 $campoPlano->VC_VALOR_CADENA_1 = $datos['c' . ($i + 1)];
                 $campoPlano->CH_ID_USUARIO_UPDATE = $usuario->CH_ID_USUARIO;
                 $campoPlano->DT_FECHA_UPDATE = now();
@@ -56,29 +56,13 @@ class camposDocumentoPlanoController extends Controller
                 $cdplano->save();
             }
         }
-        //añadir al VC_VALOR_CAMPO_4
-        $docuPlano = documentoPlanoModel::where('IN_ID_DOC_PLANO', $idDocPlano)
-            ->first();
-        $camposDocumentoMaestro = camposDocumentoMaestroModel::where([
-            ['IN_ID_DOC_MAESTRO', $docuPlano->IN_ID_DOC_MAESTRO],
-            ['VC_VALOR_CADENA_2', ""],
-        ])->get();
-        $camposEditDocPlano = camposDocumentoPlanoModel::where([
-            ['IN_ID_DOC_PLANO', $docuPlano->IN_ID_DOC_PLANO],
-            ['VC_VALOR_CADENA_3', null],
-        ])->get();
-
-        for ($i = 0; $i < count($camposDocumentoMaestro); $i++) {
-            $camposEditDocPlano[$i]['VC_VALOR_CADENA_4'] = $camposDocumentoMaestro[$i]['VC_VALOR_CADENA_1'];
-            $camposEditDocPlano[$i]->save();
-        }
     }
 
-    public function agregarImagenes(Request $request)
+    public function agregarImagenes(Request $request, $id)
     {
         $usuario = session('usu');
         $datos = $request->all();
-        $idDocPlano = $datos['idDocPlano'];
+        $idDocPlano = $id;
         $cabeceras = array_keys($datos);
         $image = $datos[$cabeceras[1]];
         $indice = substr($cabeceras[1], 10);
@@ -87,7 +71,7 @@ class camposDocumentoPlanoController extends Controller
             ['VC_VALOR_CADENA_2', 'img' . $indice],
         ])->first();
 
-        if (count((array) $checkImagen) > 0) {
+        if ($checkImagen) {
             Storage::disk('img')->delete($checkImagen->VC_VALOR_CADENA_1);
             if ($image) {
                 $image_path_update = time() . $image->getClientOriginalName();
@@ -110,6 +94,8 @@ class camposDocumentoPlanoController extends Controller
             $campoImagen->CH_ID_USUARIO_CREACION = $usuario->CH_ID_USUARIO;
             $campoImagen->DT_FECHA_CREACION = now();
             $campoImagen->save();
+
+            return response()->json('El archivo se ha subido exitosamente', 200);
         }
 
         //añadir al VC_VALOR_CAMPO_4
@@ -137,11 +123,21 @@ class camposDocumentoPlanoController extends Controller
 
     }
 
+    public function eliminarImagen(Request $request)
+    {
+        //$nameImg = $_POST['nameImg'];
+        $nameImg = $request->input('nameImg');
+        Storage::disk('img')->delete($nameImg);
+        $campoImagen = camposDocumentoPlanoModel::where('VC_VALOR_CADENA_1', $nameImg)
+            ->first();
+        $campoImagen->delete();
+        return response()->json('La imagen se elimino correctamente');
+    }
+
     public function Exportar(Request $request)
     {
-        //$idDocPlano = $_POST['idDocPlano'];
         $datos = $request->all();
         $idDocPlano = $datos['idDocPlano'];
-        return (new camposDocumentoPlanoExport($idDocPlano))->download('PlanoNro'.$idDocPlano.'.xlsx');
+        return (new camposDocumentoPlanoExport($idDocPlano))->download('PlanoNro' . $idDocPlano . '.xlsx');
     }
 }

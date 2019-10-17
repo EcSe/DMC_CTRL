@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/app.css">
@@ -40,6 +41,7 @@
                         </div>
                     </div>
                     <form class="" id="frmCamposTexto" enctype="multipart/form-data">
+                    @csrf
                         <div class="row" id="r1" style="display: none;">
                             <div class="col-md-12 form-group" style="display: inline-flex">
                                 <div class="col-md-4">
@@ -555,22 +557,27 @@
                     <div class="text-center text-lg">Plano: <span class="italic" id="spiPlano"></span></div>
                 </div>
                 <div class="container-fluid">
-                    <div class="row" id="div1" style="display: none;">
-                        <div class="col-md-12 form-group" style="display: inline-flex">
-                            <div class="col-md-6">
-                                <figure style="border:thin silver solid;text-align: center;">
-                                    <figcaption id="fc1"></figcaption>
-                                    <img id="imgEjemplo1" src="" width="500px" height="auto" class="img-fluid img-thumbnail">
-                                </figure>
-                            </div>
-                            <div class="col-md-6" id="wrapper">
-                                <form id="frm1" enctype="multipart/form-data">
-                                    <input type="file" id="inputImage1" name="inputImage1" onchange="readURL(this)">
-                                    <input type="submit" value="Cargar" id="subCarga1">
-                                    <input type="button" value="Borrar">
-                                    <img id="img1" src="" width="500" height="auto">
-                                </form>
-                            </div>
+                    <div class="flex flex-col border-4 border-gray-400 sm:flex-row" id="div1" style="display: none;">
+                        <div class="mb-3 sm:w-1/2 sm:mr-1">
+                            <figure class="">
+                                <figcaption id="fc1" class="text-center bg-blue-600 text-white m-1 py-2"></figcaption>
+                                <img id="imgEjemplo1" src="" class="h-auto w-screen sm:mt-10">
+                            </figure>
+                        </div>
+                        <div class="sm:mt-1 sm:w-1/2 sm:ml-1">
+                            <form id="frm1" enctype="multipart/form-data">
+                            @csrf
+                                <div class="">
+                                    <input class="w-screen text-sm" type="file" id="inputImage1" name="inputImage1" onchange="readURL(this)">
+                                </div>
+                                <div class="flex justify-between">
+                                    <input type="submit" value="Cargar" id="subCarga1" class="text-white bg-green-500 rounded py-2 px-3 ml-2 my-2">
+                                    <input type="button" value="Borrar" class="text-white bg-red-500 rounded py-2 px-3 mr-3 my-2" onclick="borrarImagen(this)">
+                                </div>
+                                <div class="">
+                                    <img class="h-auto w-screen" id="img1" src="">
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <div class="row" id="div2" style="display: none;">
@@ -581,8 +588,9 @@
                                     <img id="imgEjemplo2" src="" width="500px" height="auto" class="img-fluid img-thumbnail">
                                 </figure>
                             </div>
-                            <div class="col-md-6" id="wrapper">
+                            <div class="col-md-6">
                                 <form id="frm2" enctype="multipart/form-data">
+                                    @csrf
                                     <input type="file" id="inputImage2" name="inputImage2" onchange="readURL(this)">
                                     <input type="submit" value="Cargar" id="subCarga2">
                                     <input type="button" value="Borrar">
@@ -601,6 +609,7 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm3" enctype="multipart/form-data">
+                                @csrf
                                     <input type="file" id="inputImage3" name="inputImage3" onchange="readURL(this)">
                                     <input type="submit" value="Cargar" id="subCarga3">
                                     <input type="button" value="Borrar">
@@ -619,6 +628,7 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm4" enctype="multipart/form-data">
+                                    @csrf
                                     <input type="file" id="inputImage4" name="inputImage4" onchange="readURL(this)">
                                     <input type="submit" value="Cargar" id="subCarga4">
                                     <input type="button" value="Borrar">
@@ -637,6 +647,7 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm5" enctype="multipart/form-data">
+                                @csrf
                                     <input type="file" id="inputImage5" name="inputImage5" onchange="readURL(this)">
                                     <input type="submit" value="Cargar" id="subCarga5">
                                     <input type="button" value="Borrar">
@@ -655,6 +666,7 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm6" enctype="multipart/form-data">
+                                @csrf
                                     <input type="file" id="inputImage6" name="inputImage6" onchange="readURL(this)">
                                     <input type="submit" value="Cargar" id="subCarga6">
                                     <input type="button" value="Borrar">
@@ -673,6 +685,7 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm7" enctype="multipart/form-data">
+                                @csrf
                                     <input type="file" id="inputImage7" name="inputImage7" onchange="readURL(this)">
                                     <input type="submit" value="Cargar" id="subCarga7">
                                     <input type="button" value="Borrar">
@@ -691,6 +704,7 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm8" enctype="multipart/form-data">
+                                @csrf
                                     <input type="file" id="inputImage8" name="inputImage8" onchange="readURL(this)">
                                     <input type="submit" value="Cargar" id="subCarga8">
                                     <input type="button" value="Borrar">
@@ -709,6 +723,7 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm9" enctype="multipart/form-data">
+                                @csrf
                                     <input type="file" id="inputImage9" name="inputImage9" onchange="readURL(this)">
                                     <input type="submit" value="Cargar" id="subCarga9">
                                     <input type="button" value="Borrar">
@@ -727,6 +742,7 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm10" enctype="multipart/form-data">
+                                @csrf
                                     <input type="file" id="inputImage10" name="inputImage10" onchange="readURL(this)">
                                     <input type="submit" value="Cargar" id="subCarga10">
                                     <input type="button" value="Borrar">
@@ -745,6 +761,7 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm11" enctype="multipart/form-data">
+                                @csrf
                                     <input type="file" id="inputImage11" name="inputImage11" onchange="readURL(this)">
                                     <input type="submit" value="Cargar" id="subCarga11">
                                     <input type="button" value="Borrar">
@@ -763,6 +780,7 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm12" enctype="multipart/form-data">
+                                @csrf
                                     <input type="file" id="inputImage12" name="inputImage12" onchange="readURL(this)">
                                     <input type="submit" value="Cargar" id="subCarga12">
                                     <input type="button" value="Borrar">
@@ -781,6 +799,7 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm13" enctype="multipart/form-data">
+                                @csrf
                                     <input type="file" id="inputImage13" name="inputImage13" onchange="readURL(this)">
                                     <input type="submit" value="Cargar" id="subCarga13">
                                     <input type="button" value="Borrar">
@@ -799,6 +818,7 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm14" enctype="multipart/form-data">
+                                @csrf
                                     <input type="file" id="inputImage14" name="inputImage14" onchange="readURL(this)">
                                     <input type="submit" value="Cargar" id="subCarga14">
                                     <input type="button" value="Borrar">
@@ -817,6 +837,7 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm15" enctype="multipart/form-data">
+                                @csrf
                                     <input type="file" id="inputImage15" name="inputImage15" onchange="readURL(this)">
                                     <input type="submit" value="Cargar" id="subCarga15">
                                     <input type="button" value="Borrar">
@@ -835,6 +856,7 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm16" enctype="multipart/form-data">
+                                @csrf
                                     <input type="file" id="inputImage16" name="inputImage16" onchange="readURL(this)">
                                     <input type="submit" value="Cargar" id="subCarga16">
                                     <input type="button" value="Borrar">
@@ -853,6 +875,7 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm17" enctype="multipart/form-data">
+                                @csrf
                                     <input type="file" id="inputImage17" name="inputImage17" onchange="readURL(this)">
                                     <input type="submit" value="Cargar" id="subCarga17">
                                     <input type="button" value="Borrar">
@@ -871,6 +894,7 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm18" enctype="multipart/form-data">
+                                @csrf
                                     <input type="file" id="inputImage18" name="inputImage18" onchange="readURL(this)">
                                     <input type="submit" value="Cargar" id="subCarga18">
                                     <input type="button" value="Borrar">
@@ -889,6 +913,7 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm19" enctype="multipart/form-data">
+                                @csrf
                                     <input type="file" id="inputImage19" name="inputImage19" onchange="readURL(this)">
                                     <input type="submit" value="Cargar" id="subCarga19">
                                     <input type="button" value="Borrar">
@@ -907,6 +932,7 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm20" enctype="multipart/form-data">
+                                @csrf
                                     <input type="file" id="inputImage20" name="inputImage20" onchange="readURL(this)">
                                     <input type="submit" value="Cargar" id="subCarga20">
                                     <input type="button" value="Borrar">
@@ -925,6 +951,7 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm21" enctype="multipart/form-data">
+                                @csrf
                                     <input type="file" id="inputImage21" name="inputImage21" onchange="readURL(this)">
                                     <input type="submit" value="Cargar" id="subCarga21">
                                     <input type="button" value="Borrar">
@@ -943,6 +970,7 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm22" enctype="multipart/form-data">
+                                @csrf
                                     <input type="file" id="inputImage22" name="inputImage22" onchange="readURL(this)">
                                     <input type="submit" value="Cargar" id="subCarga22">
                                     <input type="button" value="Borrar">
@@ -961,6 +989,7 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm23" enctype="multipart/form-data">
+                                @csrf
                                     <input type="file" id="inputImage23" name="inputImage23" onchange="readURL(this)">
                                     <input type="submit" value="Cargar" id="subCarga23">
                                     <input type="button" value="Borrar">
@@ -979,6 +1008,7 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm24" enctype="multipart/form-data">
+                                @csrf
                                     <input type="file" id="inputImage24" name="inputImage24" onchange="readURL(this)">
                                     <input type="submit" value="Cargar" id="subCarga24">
                                     <input type="button" value="Borrar">
@@ -997,6 +1027,7 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm25" enctype="multipart/form-data">
+                                @csrf
                                     <input type="file" id="inputImage25" name="inputImage25" onchange="readURL(this)">
                                     <input type="submit" value="Cargar" id="subCarga25">
                                     <input type="button" value="Borrar">
@@ -1015,6 +1046,7 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm26" enctype="multipart/form-data">
+                                @csrf
                                     <input type="file" id="inputImage26" name="inputImage26" onchange="readURL(this)">
                                     <input type="submit" value="Cargar" id="subCarga26">
                                     <input type="button" value="Borrar">
@@ -1033,6 +1065,7 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm27" enctype="multipart/form-data">
+                                @csrf
                                     <input type="file" id="inputImage27" name="inputImage27" onchange="readURL(this)">
                                     <input type="submit" value="Cargar" id="subCarga27">
                                     <input type="button" value="Borrar">
@@ -1051,6 +1084,7 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm28" enctype="multipart/form-data">
+                                @csrf
                                     <input type="file" id="inputImage28" name="inputImage28" onchange="readURL(this)">
                                     <input type="submit" value="Cargar" id="subCarga28">
                                     <input type="button" value="Borrar">
@@ -1069,6 +1103,7 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm29" enctype="multipart/form-data">
+                                @csrf
                                     <input type="file" id="inputImage29" name="inputImage29" onchange="readURL(this)">
                                     <input type="submit" value="Cargar" id="subCarga29">
                                     <input type="button" value="Borrar">
@@ -1087,6 +1122,7 @@
                             </div>
                             <div class="col-md-6" id="wrapper">
                                 <form id="frm30" enctype="multipart/form-data">
+                                @csrf
                                     <input type="file" id="inputImage30" name="inputImage30" onchange="readURL(this)">
                                     <input type="submit" value="Cargar" id="subCarga30">
                                     <input type="button" value="Borrar">

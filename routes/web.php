@@ -21,7 +21,7 @@ Route::post('panel', array(
     'as' => 'loginUser',
     'uses' => 'usuarioController@LoginUser'
 ));
-Route::post('/logout',array(
+Route::post('/',array(
     'as' => 'logout',
     'uses' => 'usuarioController@Logout'
 ));
@@ -48,11 +48,13 @@ Route::get('/verDocPlano', function (){
 //RUTAS AJAX PARA PANEL VISTA
 Route::post('/buscarDocUsuario','docPlanoUsuarioDetalleController@buscar');
 Route::get('/listarDocUsuario','docPlanoUsuarioDetalleController@listar');
-Route::post('/verDocumento','camposDocumentoPlanoController@listar');
+//Route::post('/verDocumento','camposDocumentoPlanoController@listar');
+Route::post('/verDocumento/{id}','camposDocumentoPlanoController@listar');
 
 //RUTAS DOCUMENTO
-Route::post('/agregarImagenes','camposDocumentoPlanoController@agregarImagenes');
-Route::post('/agregarCamposPlano','camposDocumentoPlanoController@agregar');
+Route::post('/agregarImagenes/{id}','camposDocumentoPlanoController@agregarImagenes');
+Route::post('/agregarCamposPlano/{id}','camposDocumentoPlanoController@agregar');
+Route::post('/borrarImagen','camposDocumentoPlanoController@eliminarImagen');
 
 //RUTA DESCARGA DOCUMENTO
 Route::post('/downloadExcel','camposDocumentoPlanoController@Exportar');

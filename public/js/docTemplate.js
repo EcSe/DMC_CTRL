@@ -139,26 +139,28 @@ frmCamposTexto.addEventListener('submit', (e) => {
 });
 
 let verDocumento = () => {
-    let pet = new XMLHttpRequest();
     let idDocPlano = parametrosURL.get('idDocPlano');
-    pet.open('POST', '/verDocumento');
-    let param = `idDocPlano=${idDocPlano}`;
-    pet.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    pet.onload = () => {
-        let campos = JSON.parse(pet.responseText);
-        let cMaestro = campos.camposMaestro;
-        let ceTexto = cMaestro.filter((item) => item.VC_VALOR_CADENA_2 === "");
+    let init = {
+        method: 'post',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'Content-type': 'application/x-www-form-urlencoded'
+        }
+    }
+    fetch(`/verDocumento/${idDocPlano}`, init).then(res => res.json()).then(data => {
+        let cMaestro = data.camposMaestro;
+        let ceTexto = cMaestro.filter((item) => item.VC_VALOR_CADENA_2 === "" || item.VC_VALOR_CADENA_2 === null);
         for (let i = 0; i < ceTexto.length; i++) {
             document.getElementById(`lblc${i+1}`).innerHTML = ceTexto[i].VC_VALOR_CADENA_1;
             document.getElementById(`r${i+1}`).style.display = "block";
         }
-        let ceImagen = cMaestro.filter((item) => item.VC_VALOR_CADENA_2 !== "");
+        let ceImagen = cMaestro.filter((item) => item.VC_VALOR_CADENA_2 !== "" && item.VC_VALOR_CADENA_2 !== null);
         for (let j = 0; j < ceImagen.length; j++) {
             document.getElementById(`fc${j+1}`).innerHTML = `Foto Ejemplo: ${ceImagen[j].VC_VALOR_CADENA_1}`;
             document.getElementById(`imgEjemplo${j+1}`).src = ceImagen[j].VC_VALOR_CADENA_2;
-            document.getElementById(`div${j+1}`).style.display = "block";
+            document.getElementById(`div${j+1}`).style.display = "";
         }
-        let cPlano = campos.camposPlano;
+        let cPlano = data.camposPlano;
         for (let k = 0; k < cPlano.length; k++) {
             if (cPlano[k].VC_VALOR_CADENA_3 == 'IMG') {
                 document.getElementById(`${cPlano[k].VC_VALOR_CADENA_2}`).src = `/Storage/Imagenes/${cPlano[k].VC_VALOR_CADENA_1}`;
@@ -167,41 +169,38 @@ let verDocumento = () => {
             }
         }
         //Agregando datos a los documentos
-        let nombres = campos.nombresProvProyPl;
+        let nombres = data.nombresProvProyPl;
         document.getElementById('spProveedor').innerHTML = nombres[0].PROVEEDOR;
         document.getElementById('spProyecto').innerHTML = nombres[0].PROYECTO;
         document.getElementById('spPlano').innerHTML = nombres[0].PLANO;
         document.getElementById('spiProveedor').innerHTML = nombres[0].PROVEEDOR;
         document.getElementById('spiProyecto').innerHTML = nombres[0].PROYECTO;
         document.getElementById('spiPlano').innerHTML = nombres[0].PLANO;
-    }
-    pet.onreadystatechange = () => {
-        if (pet.readyState == 4 && pet.status == 200) {}
-    }
-    pet.send(param);
+    });
 }
 
 let guardarDocumento = (e) => {
     e.preventDefault();
-    let idDocPlano = parametrosURL.get('idDocPlano');
-    let peticion = new XMLHttpRequest();
     let frmData = new FormData(frmCamposTexto);
-    frmData.append('idDocPlano', idDocPlano);
-    peticion.open('POST', '/agregarCamposPlano');
-    peticion.onload = () => {}
-    peticion.onreadystatechange = () => {
-        if (peticion.readyState === 4 && peticion.status === 200) {
-
-        }
+    let idDocPlano = parametrosURL.get('idDocPlano');
+    let init = {
+        method: 'post',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+        },
+        mode: 'cors',
+        body: frmData
     }
-    peticion.send(frmData);
+    fetch(`/agregarCamposPlano/${idDocPlano}`, init).then(res => res.json()).then(data => {
+
+    });
 }
 
 let readURL = (input) => {
     if (input.files && input.files[0]) {
         let reader = new FileReader();
         reader.onload = (e) => {
-            let idImg = input.parentElement.lastElementChild.id;
+            let idImg = input.parentNode.nextElementSibling.nextElementSibling.firstElementChild.id;
             document.getElementById(idImg).src = e.target.result;
         }
         reader.readAsDataURL(input.files[0]);
@@ -213,15 +212,39 @@ let guardarImagen = (v, f) => {
     v.preventDefault();
     let idDocPlano = parametrosURL.get('idDocPlano');
     let frmData = new FormData(f);
-    frmData.append('idDocPlano', idDocPlano);
-    let peticion = new XMLHttpRequest();
-    peticion.open('POST', '/agregarImagenes');
 
-    peticion.onload = () => {}
-    peticion.onreadystatechange = () => {
-        if (peticion.readyState == 4 && peticion.status == 200) {
+    let init = {
+        method: 'post',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+        },
+        mode: 'cors',
+        body: frmData
+    }
+    fetch(`/agregarImagenes/${idDocPlano}`, init).then(res => res.json()).then(data => {
+        console.log(data);
+    });
+}
 
+let borrarImagen = (e) => {
+    //console.log(e.parentNode.nextElementSibling.firstElementChild.src);
+    let rutaImagen = e.parentNode.nextElementSibling.firstElementChild.src;
+    let array = rutaImagen.split('/');
+    let nameFile = array[array.length - 1];
+    let datos = { nameImg: nameFile };
+    let init = {
+        method: "POST",
+        body: JSON.stringify(datos), //frmIdDocPlano, 
+        headers: {
+            //'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/json'
         }
     }
-    peticion.send(frmData);
-}
+    let question = confirm('Esta seguro de eliminar esta imagen?');
+    if (question) {
+        fetch('/borrarImagen', init).then(res => res.json()).then(data => {
+            alert(data);
+        });
+    }
+
+};

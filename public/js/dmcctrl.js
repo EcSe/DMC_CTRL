@@ -14,8 +14,7 @@ frmUsuarioPlanoDetail = document.getElementById('frmUsuarioPlanoDetalle');
 //#endregion
 
 //#region VARIABLES PANEL CAMPOS
-var divMensajeCampo = document.getElementById('divMensajeCampo'),
-    divGuardarCancelar = document.getElementById('divGuardarCancelar'),
+let divGuardarCancelar = document.getElementById('divGuardarCancelar'),
     inNombreProyectoCampo = document.getElementById('inNombreProyCampo'),
     inIdDocumentoMaestro = document.getElementById('inIdDocumentoMaestro'),
     inDescripcion = document.getElementById('inDescripcionCampo'),
@@ -31,34 +30,11 @@ tblPanelVista = document.getElementById('tblVistaDoc'),
 
 //#region VARIABLES PANEL REGISTRO
 let tblUsuario = document.getElementById('tblUsuario');
-
-frmProveedor.addEventListener('submit', function(e) {
-    agregarProveedor(e);
-});
-frmProyecto.addEventListener('submit', function(e) {
-    agregarProyecto(e);
-});
-frmPlano.addEventListener('submit', function(e) {
-    agregarPlano(e);
-});
-frmUsuario.addEventListener('submit', function(e) {
-    agregarUsuario(e);
-});
-frmDocumentoMaestroProy.addEventListener('submit', function(e) {
-    AgregarCamposDocumento(e);
-});
-frmUsuarioPlanoDetail.addEventListener('submit', (e) => {
-    agregarUsuarioDocPlanoDetalle(e)
-});
-
-frmVista.addEventListener('submit', (e) => {
-    buscarDocPlanoUsuario(e);
-});
 //#endregion
 
 // PANTALLA PANEL DE CONTROL
 function controlFormularios() {
-    divMensaje.style.display = "none";
+    // divMensaje.style.display = "none";
     var cboValue = document.getElementById('cboAgregarTipo').value;
     cboValue == 0 ? (divProveedor.style.display = "block",
             divProyecto.style.display = "none",
@@ -82,35 +58,27 @@ function controlFormularios() {
         false
 }
 
-function agregarProveedor(e) {
+let agregarProveedor = (e) => {
     e.preventDefault();
-    var petProveedor = new XMLHttpRequest();
-    petProveedor.open('POST', '/agregarProveedor', true);
-    //agregar loader
-    paramNombre = frmProveedor.inNombreProv.value.trim();
-    paramDescripcion = frmProveedor.inDescripcionProv.value.trim();
-    paramEmail = frmProveedor.inEmailProv.value.trim();
-
-    var paramProveedor = 'nombre=' + paramNombre + '&descripcion=' + paramDescripcion +
-        '&email=' + paramEmail;
-    petProveedor.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-    petProveedor.onload = () => {};
-    petProveedor.onreadystatechange = () => {
-        if (petProveedor.readyState == 4 && petProveedor.status == 200) {
-            frmProveedor.inNombreProv.value = "";
-            frmProveedor.inDescripcionProv.value = "";
-            frmProveedor.inEmailProv.value = "";
-            let mensaje = JSON.parse(petProveedor.responseText);
-            divMensaje.innerHTML = mensaje;
-            divMensaje.style.display = "block"
-        } else if (petProveedor.status != 200) {
-            divMensaje.style.backgroundColor = "red";
-            divMensaje.innerHTML = "Ha ocurrido un problema";
-            divMensaje.style.display = "block"
-        }
-    };
-    petProveedor.send(paramProveedor);
+    let frmData = new FormData(frmProveedor);
+    let init = {
+        method: 'post',
+        mode: 'cors',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+        },
+        body: frmData
+    }
+    fetch('/agregarProveedor', init).then(res => res.json()).then(data => {
+        frmProveedor.reset();
+        let pRegisterMessage = document.getElementById('pRegisterMessage');
+        pRegisterMessage.innerHTML = data;
+        let alertRegistro = document.getElementById('alertRegistro');
+        alertRegistro.className = 'bg-green-200 border-t border-b border-green-500 text-green-700 px-4 py-3 mb-3';
+        setTimeout(() => {
+            alertRegistro.classList = 'hidden';
+        }, 9000);
+    });
 }
 
 function listaProveedor() {
@@ -122,7 +90,7 @@ function listaProveedor() {
     petlistProveedor.onload = function() {
         var listProve = JSON.parse(petlistProveedor.responseText);
         tblProyecto.innerHTML = '<thead><tr><th scope="col">PROVEEDOR</th><th scope="col">DESCRIPCION</th><th scope="col">EMAIL</th><th scope="col">ACCIONES</th></tr></thead>';
-        for (var i = 0; listProve.length; i++) {
+        for (var i = 0; i < listProve.length; i++) {
             var fila = document.createElement('tr');
             fila.innerHTML += ('<td style="display:none;">' + listProve[i].IN_ID_PROVEEDOR + '</td>');
             fila.innerHTML += ('<td>' + listProve[i].VC_NOMBRE + '</td>');
@@ -142,44 +110,33 @@ function listaProveedor() {
     petlistProveedor.send();
 };
 
-function addInputProy(e) {
-    divMensaje.style.display = "none";
+let addInputProy = (e) => {
     var idProv = e.parentNode.parentElement.cells[0].innerHTML,
         nombreProv = e.parentNode.parentElement.cells[1].innerHTML;
     frmProyecto.inIdProv.value = idProv;
     frmProyecto.inNombreProv.value = nombreProv;
 }
 
-function agregarProyecto(e) {
+let agregarProyecto = (e) => {
     e.preventDefault();
-    var petProyecto = new XMLHttpRequest();
-    petProyecto.open('POST', '/agregarProyecto');
-    //agregar loader
-    paramIdProveedor = frmProyecto.inIdProv.value.trim();
-    paramNombre = frmProyecto.inNombreProy.value.trim();
-    paramDescripcion = frmProyecto.inDescripcionProy.value.trim();
-
-    var paramProyecto = 'idProveedor=' + paramIdProveedor +
-        '&nombre=' + paramNombre + '&descripcion=' + paramDescripcion;
-    petProyecto.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-    petProyecto.onload = () => {}
-    petProyecto.onreadystatechange = () => {
-        if (petProyecto.readyState == 4 && petProyecto.status == 200) {
-            frmProyecto.inNombreProv.value = "";
-            frmProyecto.inNombreProy.value = "";
-            frmProyecto.inDescripcionProy.value = "";
-            let mensaje = JSON.parse(petProyecto.responseText);
-            divMensaje.innerHTML = mensaje;
-            divMensaje.style.display = "block";
-
-        } else if (petProyecto.status != 200) {
-            divMensaje.style.backgroundColor = "red";
-            divMensaje.innerHTML = "Ha ocurrido un problema"
-            divMensaje.style.display = "block";
+    let frmData = new FormData(frmProyecto);
+    let init = {
+        method: 'post',
+        body: frmData,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
         }
     };
-    petProyecto.send(paramProyecto);
+    fetch('/agregarProyecto', init).then(res => res.json()).then(data => {
+        frmProyecto.reset();
+        let pRegisterMessage = document.getElementById('pRegisterMessage');
+        pRegisterMessage.innerHTML = data;
+        let alertRegistro = document.getElementById('alertRegistro');
+        alertRegistro.className = 'bg-green-200 border-t border-b border-green-500 text-green-700 px-4 py-3 mb-3';
+        setTimeout(() => {
+            alertRegistro.classList = 'hidden';
+        }, 9000);
+    });
 }
 
 function listaProyecto() {
@@ -192,7 +149,7 @@ function listaProyecto() {
         tblPlano.innerHTML = `<thead><tr><th scope="col">PROVEEDOR</th><th scope="col">DESCRIPCION</th>
                                 <th scope="col">PROYECTO</th><th scope="col">DESCRIPCION</th>
                                 <th scope="col">ACCIONES</th></tr></thead>`;
-        for (let i = 0; listProyecto.length; i++) {
+        for (let i = 0; i < listProyecto.length; i++) {
             let fila = document.createElement('tr');
             fila.innerHTML += ('<td style="display:none;">' + listProyecto[i].IN_ID_PROYECTO + '</td>');
             fila.innerHTML += ('<td>' + listProyecto[i].proveedor.VC_NOMBRE + '</td>');
@@ -214,7 +171,6 @@ function listaProyecto() {
 }
 
 function addInputPlano(e) {
-    divMensaje.style.display = "none";
     var idProy = e.parentNode.parentElement.cells[0].innerHTML;
     nombreProy = e.parentNode.parentElement.cells[3].innerHTML;
     frmPlano.inIdProy.value = idProy;
@@ -223,38 +179,24 @@ function addInputPlano(e) {
 
 function agregarPlano(e) {
     e.preventDefault();
-    var petPlano = new XMLHttpRequest();
-    petPlano.open('POST', '/agregarPlano')
-        //agregar loader
-    paramIdProyecto = frmPlano.inIdProy.value.trim();
-    paramNombre = frmPlano.inNombrePlano.value.trim();
-    paramDescripcion = frmPlano.inDescripcionPlano.value.trim();
-    paramFechaFin = frmPlano.inFechaFin.value.trim();
-
-    var paramPlano = 'idProyecto=' + paramIdProyecto + '&nombre=' +
-        paramNombre + '&descripcion=' + paramDescripcion + '&fecha=' + paramFechaFin;
-    petPlano.setRequestHeader('Content-type', "application/x-www-form-urlencoded");
-
-    petPlano.onload = function() {
-
-    };
-
-    petPlano.onreadystatechange = function() {
-        if (petPlano.readyState == 4 && petPlano.status == 200) {
-            frmPlano.inNombreProy.value = "";
-            frmPlano.inNombrePlano.value = "";
-            frmPlano.inDescripcionPlano.value = "";
-            frmPlano.inFechaFin.value = "";
-            let mensaje = JSON.parse(petPlano.responseText);
-            divMensaje.innerHTML = mensaje;
-            divMensaje.style.display = "block";
-        } else if (petPlano.status != 200) {
-            divMensaje.style.backgroundColor = "red";
-            divMensaje.innerHTML = "Ha ocurrido un problema"
-            divMensaje.style.display = "block";
-        }
-    };
-    petPlano.send(paramPlano);
+    let frmData = new FormData(frmPlano);
+    let init = {
+        method: 'post',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+        },
+        body: frmData
+    }
+    fetch('/agregarPlano', init).then(res => res.json()).then(data => {
+        frmPlano.reset();
+        let pRegisterMessage = document.getElementById('pRegisterMessage');
+        pRegisterMessage.innerHTML = data;
+        let alertRegistro = document.getElementById('alertRegistro');
+        alertRegistro.className = 'bg-green-200 border-t border-b border-green-500 text-green-700 px-4 py-3 mb-3';
+        setTimeout(() => {
+            alertRegistro.classList = 'hidden';
+        }, 9000);
+    });
 }
 
 function listarPlano() {
@@ -264,7 +206,7 @@ function listarPlano() {
     petlistPlano.onload = function() {
         var listPlano = JSON.parse(petlistPlano.responseText);
         tblUsuarioPlano.innerHTML = '<thead><tr><th scope="col">PROVEEDOR</th><th scope="col">PROYECTO</th><th scope="col">PLANO</th><th scope="col">ACCIONES</th></tr></thead>';
-        for (var i = 0; listPlano.length; i++) {
+        for (var i = 0; i < listPlano.length; i++) {
             var fila = document.createElement('tr');
             fila.innerHTML += ('<td style="display:none">' + listPlano[i].IN_ID_PLANO + '</td>');
             fila.innerHTML += ('<td>' + listPlano[i].proyecto.proveedor.VC_NOMBRE + '</td>');
@@ -285,65 +227,25 @@ function listarPlano() {
 }
 
 
-let agregarUsuario = (e) => {
-    e.preventDefault();
-    var petUsuario = new XMLHttpRequest();
-    petUsuario.open('POST', '/agregarUsuario');
-    //cargar loader
-    pIdUsuario = frmUsuario.idUsuario.value.trim();
-    pPassword = frmUsuario.password.value.trim();
-    pNombre = frmUsuario.nombre.value.trim();
-    pApellidos = frmUsuario.apellidos.value.trim();
-    pIdPerfil = frmUsuario.idPerfil.value.trim();
-    pEmail = frmUsuario.email.value.trim();
 
-    var paramUsuarios = 'idUsuario=' + pIdUsuario + '&password=' + pPassword + '&nombre=' + pNombre +
-        '&apellidos=' + pApellidos + '&idPerfil=' + pIdPerfil + '&email=' + pEmail;
-    petUsuario.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-    petUsuario.onload = () => {
-
-    };
-
-    petUsuario.onreadystatechange = () => {
-        if (petUsuario.readyState == 4 && petUsuario.status == 200) {
-            listarUsuario();
-            frmUsuario.idUsuario.value = "";
-            frmUsuario.password.value = ""
-            frmUsuario.nombre.value = "";
-            frmUsuario.apellidos.value = "";
-            frmUsuario.idPerfil.value = "";
-            frmUsuario.email.value = "";
-        }
-    };
-    petUsuario.send(paramUsuarios);
-}
-
-let listarUsuariosCombo = (e) => {
-    var petListUsuarios = new XMLHttpRequest();
-    petListUsuarios.open('GET', '/listUsuarios');
-
-    petListUsuarios.onload = () => {
-        var lstUsuarios = JSON.parse(petListUsuarios.responseText);
-        var selectUser = document.getElementById('userSelect');
-        for (var i = 0; lstUsuarios.length; i++) {
+let listarUsuariosCombo = () => {
+    let init = {
+        method: 'get',
+        mode: 'cors'
+    }
+    fetch('/listUsuarios', init).then(res => res.json()).then(data => {
+        let selectUser = document.getElementById('userSelect');
+        for (var i = 0; i < data.length; i++) {
             var option = document.createElement('option');
-            option.text = lstUsuarios[i].VC_NOMBRE + ' ' + lstUsuarios[i].VC_APELLIDOS;
-            option.value = lstUsuarios[i].CH_ID_USUARIO;
+            option.text = data[i].VC_NOMBRE + ' ' + data[i].VC_APELLIDOS;
+            option.value = data[i].CH_ID_USUARIO;
             selectUser.appendChild(option);
         }
-    }
-
-    petListUsuarios.onreadystatechange = function() {
-        if (petListUsuarios.readyState == 4 && petListUsuarios.status == 200) {
-
-        }
-    }
-    petListUsuarios.send();
+    })
 }
 
 let addInputUsuarioPlano = (e) => {
-    divMensaje.style.display = "none";
     var selectUser = document.getElementById('userSelect');
     selectUser.options.length = 0;
     var idPlano = e.parentNode.parentElement.cells[0].innerHTML,
@@ -355,120 +257,90 @@ let addInputUsuarioPlano = (e) => {
 
 let agregarUsuarioDocPlanoDetalle = (e) => {
     e.preventDefault();
-    var petAddDocPlanDetalle = new XMLHttpRequest();
-    petAddDocPlanDetalle.open('POST', '/agregarDocumentPlanoUsuario');
-    //cargar loader
-    pIdPlano = frmUsuarioPlanoDetail.inIdPlano.value.trim();
-    pIdUsuario = frmUsuarioPlanoDetail.userSelect.value.trim();
-
-    var parametros = 'idUsuario=' + pIdUsuario + '&idPlano=' + pIdPlano;
-    petAddDocPlanDetalle.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-    petAddDocPlanDetalle.onload = function() {}
-
-    petAddDocPlanDetalle.onreadystatechange = () => {
-        if (petAddDocPlanDetalle.readyState == 4 && petAddDocPlanDetalle.status == 200) {
-            frmUsuarioPlanoDetail.inIdPlano.value = "";
-            frmUsuarioPlanoDetail.inNombrePlano.value = "";
-            let mensaje = JSON.parse(petAddDocPlanDetalle.responseText);
-            divMensaje.innerHTML = mensaje;
-            divMensaje.style.display = "block";
-        } else if (petAddDocPlanDetalle.status != 200) {
-            divMensaje.innerHTML = "Ha ocurrido un error";
-            divMensaje.style.backgroundColor = "red";
-            divMensaje.style.display = "block;"
+    let frmData = new FormData(frmUsuarioPlanoDetail);
+    let init = {
+        method: 'post',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+        },
+        mode: 'cors',
+        body: frmData
+    };
+    fetch('/agregarDocumentPlanoUsuario', init).then(res => {
+        let alertRegistro = document.getElementById('alertRegistro');
+        let pRegisterMessage = document.getElementById('pRegisterMessage');
+        if (!res.ok) {
+            res.json().then(data => {
+                pRegisterMessage.innerHTML = data;
+                alertRegistro.className = 'bg-red-200 border-t border-b border-red-500 text-red-700 px-4 py-3 mb-3';
+                setTimeout(() => {
+                    alertRegistro.classList = 'hidden';
+                }, 9000);
+            })
+        } else {
+            res.json().then(data => {
+                pRegisterMessage.innerHTML = data;
+                alertRegistro.className = 'bg-green-200 border-t border-b border-green-500 text-green-700 px-4 py-3 mb-3';
+                setTimeout(() => {
+                    alertRegistro.classList = 'hidden';
+                }, 9000);
+            })
         }
-    }
-
-    petAddDocPlanDetalle.send(parametros);
+    });
 }
 
 //FUNCIONES PANEL  CAMPOS 
-document.addEventListener('DOMContentLoaded', (event) => {
-    docuMaestroCampos();
-    listarDocPlanoUsuario();
-    listarUsuario();
-})
-
 let docuMaestroCampos = () => {
-    var petDocMasestro = new XMLHttpRequest();
-    petDocMasestro.open('GET', '/listarDocumentoMaestro');
-    //cargaloader
-
-    petDocMasestro.onload = function() {
-        var listProyecto = JSON.parse(petDocMasestro.responseText);
+    let init = {
+        method: 'get',
+        mode: 'cors'
+    }
+    fetch('/listarDocumentoMaestro', init).then(res => res.json()).then(data => {
         tblProyectoDocumento.innerHTML = '<thead><tr><th scope="col">PROVEEDOR</th><th scope="col">DESCRIPCION</th><th scope="col">PROYECTO</th><th scope="col">DESCRIPCION</th><th scope="col">ACCIONES</th></tr></thead>';
-        for (var i = 0; listProyecto.length; i++) {
+        for (var i = 0; i < data.length; i++) {
             var fila = document.createElement('tr');
-            fila.innerHTML += ('<td style="display:none;">' + listProyecto[i].IN_ID_DOC_MAESTRO + '</td>');
-            fila.innerHTML += ('<td>' + listProyecto[i].proyecto.proveedor.VC_NOMBRE + '</td>');
-            fila.innerHTML += ('<td>' + listProyecto[i].proyecto.proveedor.VC_DESCRIPCION + '</td>');
-            fila.innerHTML += ('<td>' + listProyecto[i].proyecto.VC_NOMBRE + '</td>');
-            fila.innerHTML += ('<td>' + listProyecto[i].proyecto.VC_DESCRIPCION + '</td>');
+            fila.innerHTML += ('<td style="display:none;">' + data[i].IN_ID_DOC_MAESTRO + '</td>');
+            fila.innerHTML += ('<td>' + data[i].proyecto.proveedor.VC_NOMBRE + '</td>');
+            fila.innerHTML += ('<td>' + data[i].proyecto.proveedor.VC_DESCRIPCION + '</td>');
+            fila.innerHTML += ('<td>' + data[i].proyecto.VC_NOMBRE + '</td>');
+            fila.innerHTML += ('<td>' + data[i].proyecto.VC_DESCRIPCION + '</td>');
             fila.innerHTML += (`<td><input type="button" onclick= "AddCampo(this)" class="text-white bg-blue-500 rounded py-1 px-3 mb-1 " value="AC">&nbsp&nbsp<input type="button" onclick="" class="text-white bg-blue-500 rounded py-1 px-3 mt-1" value="VER"></td>`);
             tblProyectoDocumento.appendChild(fila);
         }
-    };
-
-    petDocMasestro.onreadystatechange = () => {
-        if (petDocMasestro.readyState == 4 && petDocMasestro.status == 200) {
-            //cargar loader
-        }
-    };
-
-    petDocMasestro.send();
+    });
 }
 
 let AddCampo = (e) => {
     inIdDocumentoMaestro.value = e.parentNode.parentElement.cells[0].innerHTML;
     inNombreProyectoCampo.value = e.parentNode.parentElement.cells[3].innerHTML;
     divGuardarCancelar.style.display = "block";
-    divMensajeCampo.style.display = "none";
 }
 
 
 function cancelAddCampo() {
-    inNombreProyectoCampo.value = "";
-    inIdDocumentoMaestro.value = "";
-    inDescripcion.value = "";
+    frmDocumentoMaestro.reset();
     divGuardarCancelar.style.display = "none";
 }
 
 let AgregarCamposDocumento = (e) => {
     e.preventDefault();
-    var petCampoDocumento = new XMLHttpRequest();
-    petCampoDocumento.open('POST', '/agregarCampoDocumento');
-    //agregar loader
-    paramIdDocumentoMaestro = frmDocumentoMaestro.inIdDocumentoMaestro.value.trim();
-    paramDescripcionCampos = frmDocumentoMaestro.inDescripcionCampo.value.trim();
-    paramImagen = frmDocumentoMaestro.inImagenCampo.value.trim();
-
-    parametros = "idDocumentoMaestro=" + paramIdDocumentoMaestro + "&descripcion=" + paramDescripcionCampos +
-        "&imagenCampos=" + paramImagen;
-    petCampoDocumento.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-    petCampoDocumento.onload = function() {
-
+    let frmData = new FormData(frmDocumentoMaestro);
+    let init = {
+        method: 'post',
+        mode: 'cors',
+        body: frmData
     }
-
-    petCampoDocumento.onreadystatechange = () => {
-        if (petCampoDocumento.readyState == 4 && petCampoDocumento.status == 200) {
-            inNombreProyectoCampo.value = "";
-            inIdDocumentoMaestro.value = "";
-            inDescripcion.value = "";
-            inImagenCampo.value = "";
-            divGuardarCancelar.style.display = "none";
-            let mensaje = JSON.parse(petCampoDocumento.responseText);
-            divMensajeCampo.innerHTML = mensaje;
-            divMensajeCampo.style.display = "block";
-        } else if (petCampoDocumento.status != 200) {
-            divMensajeCampo.innerHTML = 'Ha ocurrido un error';
-            divMensajeCampo.style.backgroundColor = "red";
-            divMensajeCampo.style.display = "block";
-        }
-    }
-
-    petCampoDocumento.send(parametros);
+    fetch('/agregarCampoDocumento', init).then(res => res.json()).then(data => {
+        divGuardarCancelar.style.display = "none";
+        frmDocumentoMaestro.reset();
+        let alertCampo = document.getElementById('alertCampo');
+        let pCampoMessage = document.getElementById('pCampoMessage');
+        pCampoMessage.innerHTML = data;
+        alertCampo.className = 'bg-green-200 border-t border-b border-green-500 text-green-700 px-4 py-3 mb-3';
+        setTimeout(() => {
+            alertCampo.classList = 'hidden';
+        }, 9000);
+    });
 }
 
 let obtenerDocumentoMaestro = (idProyecto) => {
@@ -498,7 +370,7 @@ let listarDocPlanoUsuario = () => {
                                     <th scope="col">PLANO</th><th scope="col">USUARIO</th><th scope="col">ENTREGA</th>
                                     <th scope="col">ACCIONES</th></tr></thead>`;
         if (listDocUsuario.idPerfil === 1) {
-            for (let i = 0; listDocUsuario.listaVista.length; i++) {
+            for (let i = 0; i < listDocUsuario.listaVista.length; i++) {
                 let fila = document.createElement('tr');
                 fila.innerHTML += (`<td style="display:none">${listDocUsuario.listaVista[i].IDDOCUMENTO}</td>`);
                 fila.innerHTML += (`<td>${listDocUsuario.listaVista[i].PROVEEDOR}</td>`);
@@ -514,7 +386,7 @@ let listarDocPlanoUsuario = () => {
                 tblPanelVista.appendChild(fila);
             }
         } else {
-            for (let i = 0; listDocUsuario.listaVista.length; i++) {
+            for (let i = 0; i < listDocUsuario.listaVista.length; i++) {
                 let fila = document.createElement('tr');
                 fila.innerHTML += (`<td style="display:none">${listDocUsuario.listaVista[i].IDDOCUMENTO}</td>`);
                 fila.innerHTML += (`<td>${listDocUsuario.listaVista[i].PROVEEDOR}</td>`);
@@ -614,28 +486,86 @@ let descargarDocumentoVista = (e) => {
 //FUNCIONES PANEL REGISTRO USUARIOS
 
 let listarUsuario = () => {
-    let petUsuario = new XMLHttpRequest();
-    petUsuario.open('GET', '/listUsuarios');
-
-    petUsuario.onload = () => {
-        let userList = JSON.parse(petUsuario.responseText);
+    let init = {
+        method: 'get',
+        mode: 'cors'
+    }
+    fetch('/listUsuarios', init).then(res => res.json()).then(data => {
         tblUsuario.innerHTML = `<thead><tr><th scope="col">ID USUARIO</th><th scope="col">NOMBRE</th><th scope="col">PERFIL</th>
-                                <th scope="col">ACCIONES</th></tr></thead>`;
-        for (let i = 0; userList.length; i++) {
+        <th scope="col">ACCIONES</th></tr></thead>`;
+        for (let i = 0; i < data.length; i++) {
             let fila = document.createElement('tr');
-            fila.innerHTML += (`<td style="displa:none">${userList[i].CH_ID_USUARIO}</td>`);
-            fila.innerHTML += (`<td>${userList[i].VC_NOMBRE + userList[i].VC_APELLIDOS}</td>`);
-            fila.innerHTML += (`<td>${userList[i].perfil.VC_DESCRIPCION}</td>`);
+            fila.innerHTML += (`<td style="displa:none">${data[i].CH_ID_USUARIO}</td>`);
+            fila.innerHTML += (`<td>${data[i].VC_NOMBRE + data[i].VC_APELLIDOS}</td>`);
+            fila.innerHTML += (`<td>${data[i].perfil.VC_DESCRIPCION}</td>`);
             fila.innerHTML += (`<td><input type="button"  class="bg-blue-600 text-white rounded py-1 px-3 mb-2 md:mx-3" value="U">
                                 <input type="button"  class="bg-blue-600 text-white rounded py-1 px-3 mt-2 md:mx-3" value="D"></td>`);
             tblUsuario.appendChild(fila);
         }
-    }
-
-    petUsuario.onreadystatechange = () => {
-        if (petUsuario.readyState === 4 && petUsuario.status === 4) {
-            //borrar loade
-        }
-    }
-    petUsuario.send();
+    });
 }
+
+let agregarUsuario = (e) => {
+    e.preventDefault();
+    let frmData = new FormData(frmUsuario);
+    let init = {
+        method: 'post',
+        mode: 'cors',
+        body: frmData
+    };
+    fetch('/agregarUsuario', init).then(res => {
+        let alertUser = document.getElementById('alertUser');
+        let pUserMessage = document.getElementById('pUserMessage');
+        if (!res.ok) {
+            res.json().then(data => {
+                pUserMessage.innerHTML = data;
+                alertUser.className = 'bg-red-200 border-t border-b border-red-500 text-red-700 px-4 py-3 mb-3';
+                setTimeout(() => {
+                    alertUser.classList = 'hidden';
+                }, 9000);
+            });
+        } else {
+            res.json().then(data => {
+                pUserMessage.innerHTML = data;
+                alertUser.className = 'bg-green-200 border-t border-b border-green-500 text-green-700 px-4 py-3 mb-3';
+                setTimeout(() => {
+                    alertUser.classList = 'hidden'
+                }, 9000);
+            });
+        }
+    }).then(data => {
+        console.log(data);
+        listarUsuario();
+        frmUsuario.reset();
+    });
+}
+
+//#region Eventos
+frmProveedor.addEventListener('submit', function(e) {
+    agregarProveedor(e);
+});
+frmProyecto.addEventListener('submit', function(e) {
+    agregarProyecto(e);
+});
+frmPlano.addEventListener('submit', function(e) {
+    agregarPlano(e);
+});
+frmUsuario.addEventListener('submit', function(e) {
+    agregarUsuario(e);
+});
+frmDocumentoMaestroProy.addEventListener('submit', function(e) {
+    AgregarCamposDocumento(e);
+});
+frmUsuarioPlanoDetail.addEventListener('submit', (e) => {
+    agregarUsuarioDocPlanoDetalle(e)
+});
+
+frmVista.addEventListener('submit', (e) => {
+    buscarDocPlanoUsuario(e);
+});
+document.addEventListener('DOMContentLoaded', (event) => {
+        docuMaestroCampos();
+        listarDocPlanoUsuario();
+        listarUsuario();
+    })
+    //#endregion
