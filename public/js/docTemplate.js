@@ -170,12 +170,12 @@ let verDocumento = () => {
         }
         //Agregando datos a los documentos
         let nombres = data.nombresProvProyPl;
-        document.getElementById('spProveedor').innerHTML = nombres[0].PROVEEDOR;
-        document.getElementById('spProyecto').innerHTML = nombres[0].PROYECTO;
-        document.getElementById('spPlano').innerHTML = nombres[0].PLANO;
-        document.getElementById('spiProveedor').innerHTML = nombres[0].PROVEEDOR;
-        document.getElementById('spiProyecto').innerHTML = nombres[0].PROYECTO;
-        document.getElementById('spiPlano').innerHTML = nombres[0].PLANO;
+        document.getElementById('spProveedor').innerHTML = nombres[0].NOM_PROVEEDOR;
+        document.getElementById('spProyecto').innerHTML = nombres[0].NOM_PROYECTO;
+        document.getElementById('spPlano').innerHTML = nombres[0].NOM_PLANO;
+        document.getElementById('spiProveedor').innerHTML = nombres[0].NOM_PROVEEDOR;
+        document.getElementById('spiProyecto').innerHTML = nombres[0].NOM_PROYECTO;
+        document.getElementById('spiPlano').innerHTML = nombres[0].NOM_PLANO;
     });
 }
 
@@ -200,7 +200,7 @@ let readURL = (input) => {
     if (input.files && input.files[0]) {
         let reader = new FileReader();
         reader.onload = (e) => {
-            let idImg = input.parentNode.nextElementSibling.nextElementSibling.firstElementChild.id;
+            let idImg = input.parentNode.parentNode.parentNode.childNodes[7].firstElementChild.id
             document.getElementById(idImg).src = e.target.result;
         }
         reader.readAsDataURL(input.files[0]);
@@ -211,24 +211,40 @@ let readURL = (input) => {
 let guardarImagen = (v, f) => {
     v.preventDefault();
     let idDocPlano = parametrosURL.get('idDocPlano');
+    console.log(f);
     let frmData = new FormData(f);
 
     let init = {
-        method: 'post',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-        },
-        mode: 'cors',
-        body: frmData
-    }
-    fetch(`/agregarImagenes/${idDocPlano}`, init).then(res => res.json()).then(data => {
-        console.log(data);
-    });
+            method: 'post',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            },
+            mode: 'cors',
+            body: frmData
+        }
+        // fetch(`/agregarImagenes/${idDocPlano}`, init).then(res => res.json()).then(data => {
+        //     f.reset();
+        //     verDocumento();
+        //     alert(data);
+        // });
+    fetch(`/agregarImagenes/${idDocPlano}`, init).then(res => {
+        if (!res.ok) {
+            res.json().then(data => {
+                alert(data);
+            })
+        } else {
+            res.json().then(data => {
+                f.reset();
+                verDocumento();
+                alert(data);
+            });
+        }
+    })
 }
 
 let borrarImagen = (e) => {
-    //console.log(e.parentNode.nextElementSibling.firstElementChild.src);
-    let rutaImagen = e.parentNode.nextElementSibling.firstElementChild.src;
+    let idImg = e.parentNode.parentNode.childNodes[7].firstElementChild.id
+    let rutaImagen = e.parentNode.parentNode.childNodes[7].firstElementChild.src;
     let array = rutaImagen.split('/');
     let nameFile = array[array.length - 1];
     let datos = { nameImg: nameFile };
@@ -236,15 +252,19 @@ let borrarImagen = (e) => {
         method: "POST",
         body: JSON.stringify(datos), //frmIdDocPlano, 
         headers: {
-            //'Content-Type': 'application/x-www-form-urlencoded'
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             'Content-Type': 'application/json'
         }
     }
-    let question = confirm('Esta seguro de eliminar esta imagen?');
-    if (question) {
-        fetch('/borrarImagen', init).then(res => res.json()).then(data => {
-            alert(data);
-        });
+    if (rutaImagen.slice(0, 10) === 'data:image' || rutaImagen === window.location.href) {
+        document.getElementById(idImg).src = "";
+    } else {
+        let question = confirm('Esta seguro de eliminar esta imagen?');
+        if (question) {
+            fetch('/borrarImagen', init).then(res => res.json()).then(data => {
+                document.getElementById(idImg).src = "";
+                alert(data);
+            });
+        }
     }
-
 };

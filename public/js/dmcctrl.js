@@ -460,22 +460,22 @@ let buscarDocPlanoUsuario = (e) => {
 let descargarDocumentoVista = (e) => {
     let idDocumentoPlano = e.parentNode.parentElement.cells[0].innerHTML;
     //No necesito usar un formulario, solo enviar archivos JSON
-    let data = { idDocPlano: idDocumentoPlano };
+    //let data = { idDocPlano: idDocumentoPlano };
     let init = {
         method: "POST",
-        body: JSON.stringify(data), //frmIdDocPlano, 
+        // body: JSON.stringify(data), //frmIdDocPlano, 
         headers: {
-            //'Content-Type': 'application/x-www-form-urlencoded'
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             'Content-Type': 'application/json'
         }
     }
 
-    fetch('/downloadExcel', init).then(response => response.blob())
+    fetch(`/downloadExcel/${idDocumentoPlano}`, init).then(response => response.blob())
         .then((myblob) => {
             let objectUrl = URL.createObjectURL(myblob);
             let link = document.createElement('a');
             link.href = objectUrl;
-            link.setAttribute('download', `PlanoNro${idDocumentoPlano}.xlsx`);
+            link.setAttribute('download', `PlanoNumero${idDocumentoPlano}.xlsx`);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);

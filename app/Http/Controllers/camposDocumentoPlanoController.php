@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\camposDocumentoPlanoExport;
+use App\Exports\Kantutec\camposDocumentoPlanoImport; /* Carpeta dentro de exports*/
+use App\Exports\Kantutec\exportKantutec; /*Controlador Principal Importacion */
 use App\Models\camposDocumentoMaestroModel;
 use App\Models\camposDocumentoPlanoModel;
 use App\Models\documentoPlanoModel;
@@ -62,65 +63,47 @@ class camposDocumentoPlanoController extends Controller
     {
         $usuario = session('usu');
         $datos = $request->all();
-        $idDocPlano = $id;
-        $cabeceras = array_keys($datos);
-        $image = $datos[$cabeceras[1]];
-        $indice = substr($cabeceras[1], 10);
-        $checkImagen = camposDocumentoPlanoModel::where([
-            ['IN_ID_DOC_PLANO', $idDocPlano],
-            ['VC_VALOR_CADENA_2', 'img' . $indice],
-        ])->first();
 
-        if ($checkImagen) {
-            Storage::disk('img')->delete($checkImagen->VC_VALOR_CADENA_1);
-            if ($image) {
-                $image_path_update = time() . $image->getClientOriginalName();
-                \Storage::disk('img')->put($image_path_update, \File::get($image));
-            }
-            $checkImagen->VC_VALOR_CADENA_1 = $image_path_update;
-            $checkImagen->CH_ID_USUARIO_UPDATE = $usuario->CH_ID_USUARIO;
-            $checkImagen->DT_FECHA_UPDATE = now();
-            $checkImagen->save();
+        if (count($datos) < 2) {
+            return response()->json('Pruebe seleccionando una imagen', 400);
         } else {
-            if ($image) {
-                $image_path = time() . $image->getClientOriginalName();
-                \Storage::disk('img')->put($image_path, \File::get($image));
+            $idDocPlano = $id;
+            $cabeceras = array_keys($datos);
+            $image = $datos[$cabeceras[1]];
+
+            $indice = substr($cabeceras[1], 10);
+            $checkImagen = camposDocumentoPlanoModel::where([
+                ['IN_ID_DOC_PLANO', $idDocPlano],
+                ['VC_VALOR_CADENA_2', 'img' . $indice],
+            ])->first();
+
+            if ($checkImagen) {
+                Storage::disk('img')->delete($checkImagen->VC_VALOR_CADENA_1);
+                if ($image) {
+                    $image_path_update = time() . $image->getClientOriginalName();
+                    \Storage::disk('img')->put($image_path_update, \File::get($image));
+                }
+                $checkImagen->VC_VALOR_CADENA_1 = $image_path_update;
+                $checkImagen->CH_ID_USUARIO_UPDATE = $usuario->CH_ID_USUARIO;
+                $checkImagen->DT_FECHA_UPDATE = now();
+                $checkImagen->save();
+            } else {
+                if ($image) {
+                    $image_path = time() . $image->getClientOriginalName();
+                    \Storage::disk('img')->put($image_path, \File::get($image));
+                }
+                $campoImagen = new camposDocumentoPlanoModel();
+                $campoImagen->IN_ID_DOC_PLANO = $idDocPlano;
+                $campoImagen->VC_VALOR_CADENA_1 = $image_path;
+                $campoImagen->VC_VALOR_CADENA_2 = 'img' . $indice;
+                $campoImagen->VC_VALOR_CADENA_3 = 'IMG';
+                $campoImagen->CH_ID_USUARIO_CREACION = $usuario->CH_ID_USUARIO;
+                $campoImagen->DT_FECHA_CREACION = now();
+                $campoImagen->save();
+
+                return response()->json('La imagen se ha cargado correctamente', 200);
             }
-            $campoImagen = new camposDocumentoPlanoModel();
-            $campoImagen->IN_ID_DOC_PLANO = $idDocPlano;
-            $campoImagen->VC_VALOR_CADENA_1 = $image_path;
-            $campoImagen->VC_VALOR_CADENA_2 = 'img' . $indice;
-            $campoImagen->VC_VALOR_CADENA_3 = 'IMG';
-            $campoImagen->CH_ID_USUARIO_CREACION = $usuario->CH_ID_USUARIO;
-            $campoImagen->DT_FECHA_CREACION = now();
-            $campoImagen->save();
-
-            return response()->json('El archivo se ha subido exitosamente', 200);
         }
-
-        //añadir al VC_VALOR_CAMPO_4
-        $docuPlano = documentoPlanoModel::where('IN_ID_DOC_PLANO', $idDocPlano)
-            ->first();
-        $camposDocumentoMaestro = camposDocumentoMaestroModel::where([
-            ['IN_ID_DOC_MAESTRO', $docuPlano->IN_ID_DOC_MAESTRO],
-            ['VC_VALOR_CADENA_2', '!=', ""],
-        ])->get();
-        $camposEditDocPlano = camposDocumentoPlanoModel::where([
-            ['IN_ID_DOC_PLANO', $docuPlano->IN_ID_DOC_PLANO],
-            ['VC_VALOR_CADENA_3', 'IMG'],
-        ])->get();
-
-        for ($i = 0; $i < count($camposDocumentoMaestro); $i++) {
-            $camposEditDocPlano[$i]['VC_VALOR_CADENA_4'] = $camposDocumentoMaestro[$i]['VC_VALOR_CADENA_1'];
-            $camposEditDocPlano[$i]->save();
-        }
-
-        foreach ($camposEditDocPlano as $value) {
-            $indiceImagen = substr($value->VC_VALOR_CADENA_2, 3);
-            $value->VC_VALOR_CADENA_4 = $camposDocumentoMaestro[$indiceImagen - 1]['VC_VALOR_CADENA_1'];
-            $value->save();
-        }
-
     }
 
     public function eliminarImagen(Request $request)
@@ -132,12 +115,5 @@ class camposDocumentoPlanoController extends Controller
             ->first();
         $campoImagen->delete();
         return response()->json('La imagen se elimino correctamente');
-    }
-
-    public function Exportar(Request $request)
-    {
-        $datos = $request->all();
-        $idDocPlano = $datos['idDocPlano'];
-        return (new camposDocumentoPlanoExport($idDocPlano))->download('PlanoNro' . $idDocPlano . '.xlsx');
     }
 }

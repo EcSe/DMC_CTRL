@@ -57,4 +57,5 @@ Route::post('/agregarCamposPlano/{id}','camposDocumentoPlanoController@agregar')
 Route::post('/borrarImagen','camposDocumentoPlanoController@eliminarImagen');
 
 //RUTA DESCARGA DOCUMENTO
-Route::post('/downloadExcel','camposDocumentoPlanoController@Exportar');
+//Route::post('/downloadExcel','camposDocumentoPlanoController@Exportar');
+Route::post('/downloadExcel/{idDocPlano}','exportExcelController@leerExcel');
