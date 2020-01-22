@@ -10,14 +10,22 @@ use App\Models\documentoMaestroModel;
 class camposDocumentoMaestroController extends Controller
 {
     public function Agregar (Request $request) {
-        $usuario = session('usu');
-        $cdm = new camposDocumentoMaestroModel();
-        $cdm->IN_ID_DOC_MAESTRO = $request->input('inIdDocumentoMaestro');
-        $cdm->VC_VALOR_CADENA_1 = $request->input('inDescripcionCampo');
-        $cdm->VC_VALOR_CADENA_2 =  $request->input('inImagenCampo');
-        $cdm->CH_ID_USUARIO_CREACION = $usuario->CH_ID_USUARIO;
-        $cdm->DT_FECHA_CREACION = now();
-        $cdm->save();
-        return response()->json('El campo ha sido agregado correctamente',200);
+        try {
+            if (!$request->input('inIdDocumentoMaestro')) {
+                return response()->json('Es necesario elegir un proyecto',400);
+            }
+            $usuario = session('usu');
+            $cdm = camposDocumentoMaestroModel::create([
+                'IN_ID_DOC_MAESTRO' => $request->input('inIdDocumentoMaestro'),
+                'VC_VALOR_CADENA_1' => $request->input('inDescripcionCampo'),
+                'VC_VALOR_CADENA_2' => $request->input('inImagenCampo'),
+                'CH_ID_USUARIO_CREACION' => $usuario->CH_ID_USUARIO,
+                'DT_FECHA_CREACION' => now()
+            ]);
+            return response()->json('El campo '.$cdm->VC_VALOR_CADENA_1.' ha sido agregado correctamente',200);
+        } catch (\Throwable $th) {
+           return response()->json($th->getMessage(),500);
+        }
+      
     }
 }

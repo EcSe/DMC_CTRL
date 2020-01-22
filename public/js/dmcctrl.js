@@ -9,6 +9,7 @@ var divMensaje = document.getElementById('divMensaje'),
 frmProveedor = document.getElementById('frmProveedor'),
     frmProyecto = document.getElementById('frmProyecto'),
     frmUsuario = document.getElementById('frmUsuario');
+frmPlano = document.getElementById('frmPlano');
 frmUsuarioPlanoDetail = document.getElementById('frmUsuarioPlanoDetalle');
 // cboProv = document.getElementById('cboProveedor');
 //#endregion
@@ -69,7 +70,7 @@ let agregarProveedor = (e) => {
         },
         body: frmData
     }
-    fetch('/agregarProveedor', init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/agregarProveedor`, init).then(res => res.json()).then(data => {
         frmProveedor.reset();
         let pRegisterMessage = document.getElementById('pRegisterMessage');
         pRegisterMessage.innerHTML = data;
@@ -84,7 +85,7 @@ let agregarProveedor = (e) => {
 function listaProveedor() {
     // e.preventDefault();
     var petlistProveedor = new XMLHttpRequest();
-    petlistProveedor.open('GET', '/listarProveedor');
+    petlistProveedor.open('GET', `${appurl}/listarProveedor`);
     //Agregar Loader
 
     petlistProveedor.onload = function() {
@@ -127,21 +128,34 @@ let agregarProyecto = (e) => {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
         }
     };
-    fetch('/agregarProyecto', init).then(res => res.json()).then(data => {
-        frmProyecto.reset();
+    fetch(`${appurl}/agregarProyecto`, init).then(res => {
         let pRegisterMessage = document.getElementById('pRegisterMessage');
-        pRegisterMessage.innerHTML = data;
         let alertRegistro = document.getElementById('alertRegistro');
-        alertRegistro.className = 'bg-green-200 border-t border-b border-green-500 text-green-700 px-4 py-3 mb-3';
-        setTimeout(() => {
-            alertRegistro.classList = 'hidden';
-        }, 9000);
-    });
+
+        if (!res.ok) {
+            res.json().then(data => {
+                pRegisterMessage.innerHTML = data;
+                alertRegistro.className = 'bg-red-200 border-t border-b border-red-500 text-red-700 px-4 py-3 mb-3';
+                setTimeout(() => {
+                    alertRegistro.classList = 'hidden';
+                }, 9000);
+            })
+        } else {
+            res.json().then(data => {
+                frmProyecto.reset();
+                pRegisterMessage.innerHTML = data;
+                alertRegistro.className = 'bg-green-200 border-t border-b border-green-500 text-green-700 px-4 py-3 mb-3';
+                setTimeout(() => {
+                    alertRegistro.classList = 'hidden';
+                }, 9000);
+            })
+        }
+    })
 }
 
 function listaProyecto() {
     var petlistProyecto = new XMLHttpRequest();
-    petlistProyecto.open('GET', '/listaProyectos');
+    petlistProyecto.open('GET', `${appurl}/listaProyectos`);
     //cargaloader
 
     petlistProyecto.onload = function() {
@@ -187,21 +201,37 @@ function agregarPlano(e) {
         },
         body: frmData
     }
-    fetch('/agregarPlano', init).then(res => res.json()).then(data => {
-        frmPlano.reset();
+
+    fetch(`${appurl}/agregarPlano`, init).then(res => {
         let pRegisterMessage = document.getElementById('pRegisterMessage');
-        pRegisterMessage.innerHTML = data;
         let alertRegistro = document.getElementById('alertRegistro');
-        alertRegistro.className = 'bg-green-200 border-t border-b border-green-500 text-green-700 px-4 py-3 mb-3';
-        setTimeout(() => {
-            alertRegistro.classList = 'hidden';
-        }, 9000);
+
+        if (!res.ok) {
+            res.json().then(data => {
+                pRegisterMessage.innerHTML = data;
+                alertRegistro.className = 'bg-red-200 border-t border-b border-red-500 text-red-700 px-4 py-3 mb-3';
+                setTimeout(() => {
+                    alertRegistro.classList = 'hidden';
+                }, 9000);
+
+            })
+        } else {
+            res.json().then(data => {
+                frmPlano.reset();
+                pRegisterMessage.innerHTML = data;
+                alertRegistro.className = 'bg-green-200 border-t border-b border-green-500 text-green-700 px-4 py-3 mb-3';
+                setTimeout(() => {
+                    alertRegistro.classList = 'hidden';
+                }, 9000);
+
+            });
+        }
     });
 }
 
 function listarPlano() {
     var petlistPlano = new XMLHttpRequest();
-    petlistPlano.open('GET', '/listaPlanos');
+    petlistPlano.open('GET', `${appurl}/listaPlanos`);
 
     petlistPlano.onload = function() {
         var listPlano = JSON.parse(petlistPlano.responseText);
@@ -234,7 +264,7 @@ let listarUsuariosCombo = () => {
         method: 'get',
         mode: 'cors'
     }
-    fetch('/listUsuarios', init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/listUsuarios`, init).then(res => res.json()).then(data => {
         let selectUser = document.getElementById('userSelect');
         for (var i = 0; i < data.length; i++) {
             var option = document.createElement('option');
@@ -266,7 +296,7 @@ let agregarUsuarioDocPlanoDetalle = (e) => {
         mode: 'cors',
         body: frmData
     };
-    fetch('/agregarDocumentPlanoUsuario', init).then(res => {
+    fetch(`${appurl}/agregarDocumentPlanoUsuario`, init).then(res => {
         let alertRegistro = document.getElementById('alertRegistro');
         let pRegisterMessage = document.getElementById('pRegisterMessage');
         if (!res.ok) {
@@ -279,6 +309,7 @@ let agregarUsuarioDocPlanoDetalle = (e) => {
             })
         } else {
             res.json().then(data => {
+                frmUsuarioPlanoDetail.reset();
                 pRegisterMessage.innerHTML = data;
                 alertRegistro.className = 'bg-green-200 border-t border-b border-green-500 text-green-700 px-4 py-3 mb-3';
                 setTimeout(() => {
@@ -295,7 +326,7 @@ let docuMaestroCampos = () => {
         method: 'get',
         mode: 'cors'
     }
-    fetch('/listarDocumentoMaestro', init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/listarDocumentoMaestro`, init).then(res => res.json()).then(data => {
         tblProyectoDocumento.innerHTML = '<thead><tr><th scope="col">PROVEEDOR</th><th scope="col">DESCRIPCION</th><th scope="col">PROYECTO</th><th scope="col">DESCRIPCION</th><th scope="col">ACCIONES</th></tr></thead>';
         for (var i = 0; i < data.length; i++) {
             var fila = document.createElement('tr');
@@ -330,22 +361,36 @@ let AgregarCamposDocumento = (e) => {
         mode: 'cors',
         body: frmData
     }
-    fetch('/agregarCampoDocumento', init).then(res => res.json()).then(data => {
-        divGuardarCancelar.style.display = "none";
-        frmDocumentoMaestro.reset();
+
+    fetch(`${appurl}/agregarCampoDocumento`, init).then(res => {
         let alertCampo = document.getElementById('alertCampo');
         let pCampoMessage = document.getElementById('pCampoMessage');
-        pCampoMessage.innerHTML = data;
-        alertCampo.className = 'bg-green-200 border-t border-b border-green-500 text-green-700 px-4 py-3 mb-3';
-        setTimeout(() => {
-            alertCampo.classList = 'hidden';
-        }, 9000);
+
+        if (!res.ok) {
+            res.json().then(data => {
+                pCampoMessage.innerHTML = data;
+                alertCampo.className = 'bg-red-200 border-t border-b border-red-500 text-red-700 px-4 py-3 mb-3';
+                setTimeout(() => {
+                    alertCampo.classList = 'hidden';
+                }, 9000);
+            });
+        } else {
+            res.json().then(data => {
+                divGuardarCancelar.style.display = "none";
+                frmDocumentoMaestro.reset();
+                pCampoMessage.innerHTML = data;
+                alertCampo.className = 'bg-green-200 border-t border-b border-green-500 text-green-700 px-4 py-3 mb-3';
+                setTimeout(() => {
+                    alertCampo.classList = 'hidden';
+                }, 9000);
+            });
+        }
     });
 }
 
 let obtenerDocumentoMaestro = (idProyecto) => {
     var petDocumento = new XMLHttpRequest();
-    petDocumento.open('POST', '/listarCampos');
+    petDocumento.open('POST', `${appurl}/listarCampos`);
 
     pdmIdProyecto = "idDocumentoMaestro=" + idProyecto;
     petDocumento.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -362,7 +407,7 @@ let obtenerDocumentoMaestro = (idProyecto) => {
 //FUNCIONES PANEL VISTA
 let listarDocPlanoUsuario = () => {
     let petLista = new XMLHttpRequest();
-    petLista.open('GET', '/listarDocUsuario');
+    petLista.open('GET', `${appurl}/listarDocUsuario`);
 
     petLista.onload = () => {
         let listDocUsuario = JSON.parse(petLista.responseText);
@@ -414,7 +459,7 @@ let listarDocPlanoUsuario = () => {
 let buscarDocPlanoUsuario = (e) => {
     e.preventDefault();
     let petDocumentoUsuario = new XMLHttpRequest();
-    petDocumentoUsuario.open('POST', '/buscarDocUsuario');
+    petDocumentoUsuario.open('POST', `${appurl}/buscarDocUsuario`);
     let opcion = document.getElementById('selectOpciones').value.trim(),
         valor = document.getElementById('inValor').value.trim();
 
@@ -470,7 +515,7 @@ let descargarDocumentoVista = (e) => {
         }
     }
 
-    fetch(`/downloadExcel/${idDocumentoPlano}`, init).then(response => response.blob())
+    fetch(`${appurl}/downloadExcel/${idDocumentoPlano}`, init).then(response => response.blob())
         .then((myblob) => {
             let objectUrl = URL.createObjectURL(myblob);
             let link = document.createElement('a');
@@ -490,7 +535,7 @@ let listarUsuario = () => {
         method: 'get',
         mode: 'cors'
     }
-    fetch('/listUsuarios', init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/listUsuarios`, init).then(res => res.json()).then(data => {
         tblUsuario.innerHTML = `<thead><tr><th scope="col">ID USUARIO</th><th scope="col">NOMBRE</th><th scope="col">PERFIL</th>
         <th scope="col">ACCIONES</th></tr></thead>`;
         for (let i = 0; i < data.length; i++) {
@@ -513,7 +558,7 @@ let agregarUsuario = (e) => {
         mode: 'cors',
         body: frmData
     };
-    fetch('/agregarUsuario', init).then(res => {
+    fetch(`${appurl}/agregarUsuario`, init).then(res => {
         let alertUser = document.getElementById('alertUser');
         let pUserMessage = document.getElementById('pUserMessage');
         if (!res.ok) {

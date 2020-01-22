@@ -10,8 +10,11 @@ use App\Models\documentoPlanoModel;
 class docPlanoUsuarioDetalleController extends Controller
 {
     public function agregar(Request $request) {
-        $docPlanoUsuarioDetalle = new docPlanoUsuarioDetalleModel ();
         $usuario = session('usu');
+        if (!$request->input('inIdPlano')) {
+           return response()->json('Es necesario elegir un plano',400);
+        }
+        $docPlanoUsuarioDetalle = new docPlanoUsuarioDetalleModel ();
         $idPlano = $request->input('inIdPlano');
         $documentoPlano = documentoPlanoModel::where('IN_ID_PLANO',$idPlano)->first();
 
@@ -19,8 +22,9 @@ class docPlanoUsuarioDetalleController extends Controller
                                                 ['CH_ID_USUARIO',$request->input('userSelect')],
                                                 ['IN_ID_DOC_PLANO',$documentoPlano->IN_ID_DOC_PLANO]        
                                                 ])->first();
+        // var_dump($userDoc->toArray());
         if ($userDoc) {
-            return response ()->json("El usuario ya esta asignado al documento",400);
+            return response()->json("El usuario ya esta asignado al documento",400);
         }else{
             $docPlanoUsuarioDetalle->CH_ID_USUARIO =$request->input('userSelect');
             $docPlanoUsuarioDetalle->IN_ID_DOC_PLANO = $documentoPlano->IN_ID_DOC_PLANO;
@@ -28,7 +32,7 @@ class docPlanoUsuarioDetalleController extends Controller
             $docPlanoUsuarioDetalle->DT_FECHA_CREACION = now();
             $docPlanoUsuarioDetalle->save();
 
-            return response()->json('El usuario ha sido asignado correctamente',200);
+            return response()->json('El usuario  ha sido asignado correctamente',200);
         }
     }
 

@@ -110,7 +110,7 @@
                     <form id="frmProyecto">
                         @csrf
                         <div class="flex flex-col my-2 md:flex-row">
-                            <input type="hidden" id="inIdProv" name="inIdProv">
+                            <input class='hidden' id="inIdProv" name="inIdProv">
                             <input type="text" id="inNombreProv" name="inNombreProv" placeholder="Nombre Proveedor" disabled class="w-full text-center py-2 px-3 rounded my-2 md:w-1/3 md:mr-2">
                             <input type="text" id="inNombreProy" name="inNombreProy" placeholder="Nombre Proyecto" required class="w-full text-center py-2 px-3 rounded my-2 md:w-1/3 md:mx-2">
                             <input type="text" id="inDescripcionProy" name="inDescripcionProy" placeholder="Descripcion Proyecto" required class="w-full text-center py-2 px-3 rounded my-2 md:w-1/3 md:ml-2">
@@ -127,7 +127,7 @@
                     <form id="frmPlano">
                         @csrf
                         <div class="flex flex-col my-2 md:flex-row">
-                            <input type="hidden" id="inIdProy" name="inIdProy">
+                            <input  id="inIdProy" class='hidden' name="inIdProy">
                             <input type="text" id="inNombreProy" name="inNombreProy" placeholder="Nonbre Proyecto" disabled class="w-full text-center py-2 px-3 my-2 md:w-1/3 md:mr-2">
                             <input type="text" id="inNombrePlano" name="inNombrePlano" placeholder="Nombre Plano" required class="w-full text-center py-2 px-3 my-2 md:w-1/3 md:mx-2">
                             <input type="text" id="inDescripcionPlano" name="inDescripcionPlano" placeholder="Descripcion Plano" required class="w-full text-center py-2 px-3 my-2 md:w-1/3 md:mx-2">
@@ -145,7 +145,7 @@
                     <form id="frmUsuarioPlanoDetalle">
                         @csrf
                         <div class="flex flex-col my-2 md:flex-row">
-                            <input type="hidden" id="inIdPlano" name="inIdPlano">
+                            <input class='hidden' id="inIdPlano" name="inIdPlano">
                             <input type="text" id="inNombrePlano" name="inNombrePlano" placeholder="Nombre Plano" disabled class="w-full py-2 px-3 my-2 md:w-1/2 md:mr-2">
                             <select id="userSelect" name="userSelect" class="my-2 py-2 px-3 md:w-1/2 md:ml-2">
                                         <option value="" selected disabled>--Escoger Usuario--</option>
@@ -170,7 +170,7 @@
                     <form id="frmDocumentoMaestro" enctype="multipart/form-data">
                         @csrf
                         <div class="md:flex mb-2">
-                            <input type="hidden" id="inIdDocumentoMaestro" name="inIdDocumentoMaestro">
+                            <input class='hidden' id="inIdDocumentoMaestro" name="inIdDocumentoMaestro">
                             <input type="text" id="inNombreProyCampo" name="inNombreProyCampo" placeholder="Nombre Proyecto" disabled class="w-full my-2 text-center px-2 py-3 md:mr-3">
                             <input type="text" id="inDescripcionCampo" name="inDescripcionCampo" placeholder="Ingresar Descripcion" required class="w-full my-2 text-center py-2 px-3 md:mx-3">
                             <input type="text" id="inImagenCampo" name="inImagenCampo" placeholder="Ingresar Ruta Imagen" class="w-full my-2 text-center py-2 px-3 border-solid md:ml-3">
@@ -224,6 +224,9 @@
     </div>
     <script src="js/app.js" charset="utf-8"></script>
     <script src="js/dmcctrl.js" type="text/javascript"></script>
+    <script>
+		let appurl = "{{config("app.url")}}";
+    </script>
 </body>
 
 </html>
