@@ -147,7 +147,7 @@ let verDocumento = () => {
             'Content-type': 'application/x-www-form-urlencoded'
         }
     }
-    fetch(`/verDocumento/${idDocPlano}`, init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/verDocumento/${idDocPlano}`, init).then(res => res.json()).then(data => {
         let cMaestro = data.camposMaestro;
         let ceTexto = cMaestro.filter((item) => item.VC_VALOR_CADENA_2 === "" || item.VC_VALOR_CADENA_2 === null);
         for (let i = 0; i < ceTexto.length; i++) {
@@ -191,7 +191,7 @@ let guardarDocumento = (e) => {
         mode: 'cors',
         body: frmData
     }
-    fetch(`/agregarCamposPlano/${idDocPlano}`, init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/agregarCamposPlano/${idDocPlano}`, init).then(res => res.json()).then(data => {
 
     });
 }
@@ -215,19 +215,14 @@ let guardarImagen = (v, f) => {
     let frmData = new FormData(f);
 
     let init = {
-            method: 'post',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            },
-            mode: 'cors',
-            body: frmData
-        }
-        // fetch(`/agregarImagenes/${idDocPlano}`, init).then(res => res.json()).then(data => {
-        //     f.reset();
-        //     verDocumento();
-        //     alert(data);
-        // });
-    fetch(`/agregarImagenes/${idDocPlano}`, init).then(res => {
+        method: 'post',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+        },
+        mode: 'cors',
+        body: frmData
+    }
+    fetch(`${appurl}/agregarImagenes/${idDocPlano}`, init).then(res => {
         if (!res.ok) {
             res.json().then(data => {
                 alert(data);
@@ -261,7 +256,7 @@ let borrarImagen = (e) => {
     } else {
         let question = confirm('Esta seguro de eliminar esta imagen?');
         if (question) {
-            fetch('/borrarImagen', init).then(res => res.json()).then(data => {
+            fetch(`${appurl}/borrarImagen`, init).then(res => res.json()).then(data => {
                 document.getElementById(idImg).src = "";
                 alert(data);
             });
