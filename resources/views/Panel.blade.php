@@ -62,7 +62,7 @@
                                 </select>
                             </div>
                             <div class="my-3 md:w-2/5 md:mx-3">
-                                <input type="text" id="inValor" placeholder="Ingresar nombre o parte de el" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700  focus:outline-none focus:shadow-outline">
+                                <input type="text" id="inValor" name='inValor' placeholder="Ingresar nombre o parte de el" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700  focus:outline-none focus:shadow-outline">
                             </div>
                             <div class="flex justify-between my-3 md:w-1/5">
                                 <input type="submit" class="btn btn-success md:px-2" id="subBusqueda" value="Buscar" style="float: left">
@@ -174,6 +174,7 @@
                             <input type="text" id="inNombreProyCampo" name="inNombreProyCampo" placeholder="Nombre Proyecto" disabled class="w-full my-2 text-center px-2 py-3 md:mr-3">
                             <input type="text" id="inDescripcionCampo" name="inDescripcionCampo" placeholder="Ingresar Descripcion" required class="w-full my-2 text-center py-2 px-3 md:mx-3">
                             <input type="text" id="inImagenCampo" name="inImagenCampo" placeholder="Ingresar Ruta Imagen" class="w-full my-2 text-center py-2 px-3 border-solid md:ml-3">
+                            <input type="text" id="inNameSheet" name="inNameSheet" placeholder="Nombre hoja Excel" class="w-full my-2 text-center py-2 px-3 border-solid md:ml-3">
                         </div>
                         <div class="row">
                             <div class="col-md-12 form-group" id="divGuardarCancelar" style="text-align: center; display: none;">

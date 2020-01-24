@@ -25,15 +25,6 @@ class planoController extends Controller
             'DT_FECHA_CREACION' => now()
         ]);
 
-        // $newPlano = new planoModel();
-        // $newPlano->IN_ID_PROYECTO = $request->input('inIdProy');
-        // $newPlano->VC_NOMBRE = $request->input('inNombrePlano');
-        // $newPlano->VC_DESCRIPCION = $request->input('inDescripcionPlano'); 
-        // $newPlano->DT_FECHA_FIN = $request->input('inFechaFin'); 
-        // $newPlano->CH_ID_USUARIO_CREACION = $usuario->CH_ID_USUARIO;
-        // $newPlano->DT_FECHA_CREACION = now();
-        // $newPlano->save();
-
         /*AL CREAR UN PLANO SE ACTIVA UN DOCUMENTO MAESTRO PARA EL PROYECTO
         VERIFICAMOS SI YA HAY UN DOCUMENTO MAESTRO CREADO*/
         $documentoMaestro = documentoMaestroModel::where('IN_ID_PROYECTO',$request->input('inIdProy'))
@@ -46,17 +37,11 @@ class planoController extends Controller
             $newDocumentoMaestro->save(); 
         }
        
-        //TAMBIEN GENERAMOS UN DOCUMENTO PARA EL PLANO
-        // $plano = planoModel::where([
-        //     ['VC_NOMBRE',$request->input('inNombrePlano')],
-        //     ['VC_DESCRIPCION',$request->input('inDescripcionPlano')]
-        //     ])->first();
         $documentoMaestro = documentoMaestroModel::where('IN_ID_PROYECTO','=',$request->input('inIdProy'))
                                                     ->first();
         
         $newDocPlano = new documentoPlanoModel();
         $newDocPlano->IN_ID_DOC_MAESTRO = $documentoMaestro->IN_ID_DOC_MAESTRO;
-        //$newDocPlano->IN_ID_PLANO = $plano->IN_ID_PLANO;
         $newDocPlano->IN_ID_PLANO = $newPlano->IN_ID_PLANO;
         $newDocPlano->CH_ID_USUARIO_CREACION = $usuario->CH_ID_USUARIO;
         $newDocPlano->DT_FECHA_CREACION = now();

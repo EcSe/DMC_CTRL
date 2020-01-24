@@ -163,7 +163,7 @@ let verDocumento = () => {
         let cPlano = data.camposPlano;
         for (let k = 0; k < cPlano.length; k++) {
             if (cPlano[k].VC_VALOR_CADENA_3 == 'IMG') {
-                document.getElementById(`${cPlano[k].VC_VALOR_CADENA_2}`).src = `/Storage/Imagenes/${cPlano[k].VC_VALOR_CADENA_1}`;
+                document.getElementById(`${cPlano[k].VC_VALOR_CADENA_2}`).src = `${appurl}/Storage/Imagenes/${cPlano[k].VC_VALOR_CADENA_1}`;
             } else {
                 document.getElementById(`${cPlano[k].VC_VALOR_CADENA_2}`).value = cPlano[k].VC_VALOR_CADENA_1;
             }

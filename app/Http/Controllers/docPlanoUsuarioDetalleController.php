@@ -22,7 +22,6 @@ class docPlanoUsuarioDetalleController extends Controller
                                                 ['CH_ID_USUARIO',$request->input('userSelect')],
                                                 ['IN_ID_DOC_PLANO',$documentoPlano->IN_ID_DOC_PLANO]        
                                                 ])->first();
-        // var_dump($userDoc->toArray());
         if ($userDoc) {
             return response()->json("El usuario ya esta asignado al documento",400);
         }else{
@@ -36,14 +35,14 @@ class docPlanoUsuarioDetalleController extends Controller
         }
     }
 
-    public function buscar () {
+    public function buscar (Request $request) {
         $usuario = session('usu');
-        $opcion = $_POST['opcion'];
-        $valor = $_POST['valor'];
-        if($usuario->IN_ID_PERFIL == 1){
+        $opcion = $request->input('opcion');
+        $valor = $request->input('valor');
+        if($usuario->IN_ID_PERFIL === 1){
             $vista = DB::select('CALL USP_LISTAR_DOCUMENTOS_ADM(?,?)',array($opcion,$valor));
         }
-       return response()->json($vista);
+       return response()->json($vista,200);
     }
 
     public function listar () {

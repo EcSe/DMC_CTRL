@@ -8,17 +8,16 @@ use App\Models\proveedorModel;
 class proveedorController extends Controller
 {
     public function agregarProveedor(Request $request){
-        $newProveedor = new proveedorModel();
         $usuario = session('usu');
 
-        $newProveedor->VC_NOMBRE = $request->input('inNombreProv');
-        $newProveedor->VC_DESCRIPCION = $request->input('inDescripcionProv');
-        $newProveedor->VC_EMAIL = $request->input('inEmailProv');
-        $newProveedor->CH_ID_USUARIO_CREACION  = $usuario->CH_ID_USUARIO;
-        $newProveedor->DT_FECHA_CREACION = now();
-        $newProveedor->save();
-
-        return response()->json('El proveedor '. $request->input('inNombreProv').' se ha creado correctamente',200);
+        $newProveedor = proveedorModel::create([
+            'VC_NOMBRE' => $request->input('inNombreProv'),
+            'VC_DESCRIPCION' => $request->input('inDescripcionProv'),
+            'VC_EMAIL' => $request->input('inEmailProv'),
+            'CH_ID_USUARIO_CREACION' => $usuario->CH_ID_USUARIO,
+            'DT_FECHA_CREACION' => now()
+        ]);
+        return response()->json('El proveedor '.$newProveedor->VC_NOMBRE.' se ha creado correctamente');
     }
 
     public function listarProveedor(){
