@@ -41,14 +41,18 @@ Route::post('/agregarDocumentPlanoUsuario','docPlanoUsuarioDetalleController@agr
 Route::get('/listarDocumentoMaestro','documentoMaestroController@listar');
 Route::post('/agregarCampoDocumento','camposDocumentoMaestroController@Agregar');
 Route::post('/listarCampos','camposDocumentoMaestroController@listarCampos');
+// Route::get('/verDocPlano', function (){
+//     return view('docPlantillas');
+// }); /*---> Ruta para el href de la seccion de vistas */
+
+//Prueba Nueva Ventada documento
 Route::get('/verDocPlano', function (){
-    return view('docPlantillas');
+    return view('Documento');
 }); /*---> Ruta para el href de la seccion de vistas */
 
 //RUTAS AJAX PARA PANEL VISTA
 Route::post('/buscarDocUsuario','docPlanoUsuarioDetalleController@buscar');
 Route::get('/listarDocUsuario','docPlanoUsuarioDetalleController@listar');
-//Route::post('/verDocumento','camposDocumentoPlanoController@listar');
 Route::post('/verDocumento/{id}','camposDocumentoPlanoController@listar');
 
 //RUTAS DOCUMENTO

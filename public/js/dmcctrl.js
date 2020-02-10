@@ -328,6 +328,9 @@ function cancelAddCampo() {
 }
 
 let isUriImage = (uri) => {
+    if (uri === '') {
+        return true;
+    }
     //make sure we remove any nasty GET params 
     uri = uri.split('?')[0];
     //moving on now

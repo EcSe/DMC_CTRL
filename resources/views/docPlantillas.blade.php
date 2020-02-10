@@ -1430,11 +1430,10 @@
             </div>
         </div>
     </div>
-    </div>
     <script src="js/app.js" charset="utf-8"></script>
     <script src="js/docTemplate.js" type="text/javascript"></script>
     <script>
-		let appurl = "{{config("app.url")}}";
+        let appurl = "{{config("app.url")}}";
     </script>
 </body>
 

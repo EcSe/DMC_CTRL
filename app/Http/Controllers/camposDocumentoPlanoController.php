@@ -25,11 +25,18 @@ class camposDocumentoPlanoController extends Controller
             ->get();
         $nombres_prov_proy_pl = DB::select('CALL USP_VC_NOMBRES(?)', array($docuPlano->IN_ID_PLANO));
 
+        $nameSheets = array_map(function ($elements) {
+            return $elements['VC_VALOR_CADENA_3'];
+        }, $listCamposDocuMaestro->toArray());
+
+        $nameSheetsUniqueNotNull = array_values(array_filter(array_unique($nameSheets))); /*array_filter te devuelve los valores con los indices, 
+                                                                                            array_value los ordena desde 0 */
         return response()->json([
             'camposMaestro' => $listCamposDocuMaestro,
             'camposPlano' => $listCamposDocuPlano,
             'nombresProvProyPl' => $nombres_prov_proy_pl,
-        ]);
+            'sheets' => $nameSheetsUniqueNotNull
+        ],200);
     }
 
     public function agregar(Request $request, $id)
@@ -81,7 +88,7 @@ class camposDocumentoPlanoController extends Controller
                 Storage::disk('img')->delete($checkImagen->VC_VALOR_CADENA_1);
                 if ($image) {
                     $image_path_update = time() . $image->getClientOriginalName();
-                    \Storage::disk('img')->put($image_path_update, \File::get($image));
+                    Storage::disk('img')->put($image_path_update, File::get($image));
                 }
                 $checkImagen->VC_VALOR_CADENA_1 = $image_path_update;
                 $checkImagen->CH_ID_USUARIO_UPDATE = $usuario->CH_ID_USUARIO;
@@ -90,7 +97,7 @@ class camposDocumentoPlanoController extends Controller
             } else {
                 if ($image) {
                     $image_path = time() . $image->getClientOriginalName();
-                    \Storage::disk('img')->put($image_path, \File::get($image));
+                    Storage::disk('img')->put($image_path, File::get($image));
                 }
                 $campoImagen = new camposDocumentoPlanoModel();
                 $campoImagen->IN_ID_DOC_PLANO = $idDocPlano;
